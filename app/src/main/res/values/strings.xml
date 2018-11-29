@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">MyDemo</string>
+
+    <string-array name="search_peoples_state_name">
+        <item>认证用户</item>
+        <item>会员用户</item>
+        <item>在线用户</item>
+    </string-array>
+    <string-array name="search_peoples_state_id">
+        <item>is_validated</item>
+        <item>is_vip</item>
+        <item>is_online</item>
+    </string-array>
+
+</resources>

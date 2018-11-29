@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.itkluo.demo">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- 允许读取网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 允许读取wifi网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
+    <!-- 允许 弹出系统级别的AlterDialog -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <!-- <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" /> -->
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".DemoListActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"></activity>
+        <activity
+            android:name=".ScreenActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+
+        <!-- <receiver android:name=".MainActivity$NetworkChangeReceiver"> -->
+        <!-- </receiver> -->
+
+        <activity android:name=".OptimActivity" />
+        <activity android:name=".AppInfoActivity" />
+        <activity android:name=".MainActivity2" />
+        <activity
+            android:name=".RxPermissionTestActivity"
+            android:label="RxPermission in Activity" />
+        <activity android:name=".ScreenOnOffActivity"></activity>
+        <activity android:name=".binder.ClientActivity"></activity>
+        <activity android:name=".VpIndicateActivity" />
+        <activity android:name=".ViewpagerGridMenuActivity" />
+
+        <service
+            android:name="binder.ComputeService"
+            android:process=":remote" />
+        <activity android:name=".aidl.ClientActivity2"></activity>
+        <activity android:name=".CascadingMenuActivity" />
+        <activity android:name=".DownMenuActivity" />
+        <activity android:name="com.itkluo.ConstraintLayoutActivity" />
+
+        <service
+            android:name=".aidl.ComputeService2"
+            android:process=":remote" />
+    </application>
+
+</manifest>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:background="@drawable/round_corner_line_radius_3dp"
+        android:orientation="horizontal"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:layout_centerInParent="true">
+
+        <TextView
+            android:id="@+id/chooseText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="分类"
+            android:textColor="@android:color/holo_orange_dark"
+            android:textSize="12dp" />
+
+        <ImageView
+            android:id="@+id/arrow"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/icon_down_arrow" />
+
+    </LinearLayout>
+
+</RelativeLayout>

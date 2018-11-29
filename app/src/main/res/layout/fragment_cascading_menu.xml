@@ -1,0 +1,17 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/half_transparent"
+    android:orientation="vertical">
+
+
+    <com.itkluo.demo.widget.cascadingmenu.CascadingMenuView
+        android:id="@+id/cascadingMenuView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/cascading_menu_max_height"
+        android:background="@color/transparent"
+        app:EMenuType="Three"
+        app:itemSelectedDrawableId="@drawable/choose_item_selected"
+        app:itemSelector="@drawable/choose_item_selector" />
+</LinearLayout>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BGABanner">
+        <attr name="banner_pointContainerBackground" format="reference|color" />
+        <attr name="banner_pointDrawable" format="reference" />
+        <attr name="banner_pointContainerLeftRightPadding" format="dimension" />
+        <attr name="banner_pointTopBottomMargin" format="dimension" />
+        <attr name="banner_pointLeftRightMargin" format="dimension" />
+        <attr name="banner_indicatorGravity">
+            <flag name="top" value="0x30" />
+            <flag name="bottom" value="0x50" />
+            <flag name="left" value="0x03" />
+            <flag name="right" value="0x05" />
+            <flag name="center_horizontal" value="0x01" />
+        </attr>
+        <attr name="banner_pointAutoPlayAble" format="boolean" />
+        <attr name="banner_pointAutoPlayInterval" format="integer" />
+        <attr name="banner_pageChangeDuration" format="integer" />
+        <attr name="banner_transitionEffect" format="enum">
+            <enum name="defaultEffect" value="0" />
+            <enum name="alpha" value="1" />
+            <enum name="rotate" value="2" />
+            <enum name="cube" value="3" />
+            <enum name="flip" value="4" />
+            <enum name="accordion" value="5" />
+            <enum name="zoomFade" value="6" />
+            <enum name="fade" value="7" />
+            <enum name="zoomCenter" value="8" />
+            <enum name="zoomStack" value="9" />
+            <enum name="stack" value="10" />
+            <enum name="depth" value="11" />
+            <enum name="zoom" value="12" />
+        </attr>
+        <attr name="banner_tipTextColor" format="reference|color" />
+        <attr name="banner_tipTextSize" format="dimension" />
+        <attr name="banner_placeholderDrawable" format="reference" />
+        <attr name="banner_isNumberIndicator" format="boolean" />
+        <attr name="banner_numberIndicatorTextColor" format="reference|color" />
+        <attr name="banner_numberIndicatorTextSize" format="dimension" />
+        <attr name="banner_numberIndicatorBackground" format="reference" />
+        <attr name="banner_isNeedShowIndicatorOnOnlyOnePage" format="boolean" />
+        <attr name="banner_contentBottomMargin" format="dimension" />
+        <attr name="android:scaleType" />
+    </declare-styleable>
+    <item name="viewpager_grid_Menu_indicatorId" type="id" />
+
+    <declare-styleable name="CascadingMenuView">
+        <attr name="EMenuType" format="enum">
+            <enum name="One" value="0" />
+            <enum name="Two" value="1" />
+            <enum name="Three" value="2" />
+        </attr>
+        <attr name="itemSelectedDrawableId" format="reference" />
+        <attr name="itemSelector" format="reference" />
+    </declare-styleable>
+
+</resources>

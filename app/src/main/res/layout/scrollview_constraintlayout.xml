@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF5F5F5">
+
+    <TextView
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="textView"
+        app:layout_constraintTop_toTopOf="parent"
+       />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#FFF5F5F5"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@+id/tv_confirm_stage"
+        app:layout_constraintTop_toBottomOf="@+id/title_bar">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/ctl_stage_info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/tv_title_stage_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="14dp"
+                android:textColor="#666666"
+                android:textSize="14sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="分期金额"
+                android:layout_marginLeft="16dp" />
+
+            <EditText
+                android:id="@+id/et_stage_amount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="7dp"
+                android:background="@null"
+                android:ellipsize="end"
+                android:inputType="numberDecimal"
+                android:lines="1"
+                android:textColor="#FF414141"
+                android:textSize="24sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/tv_modify_amount"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_stage_amount"
+                tools:ignore="LabelFor"
+                tools:text="฿6,800.99"
+                android:layout_marginLeft="16dp" />
+
+            <TextView
+                android:id="@+id/tv_modify_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:padding="6dp"
+                android:textColor="#4F80F7"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/et_stage_amount"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/et_stage_amount"
+                tools:text="修改金额"
+                android:layout_marginRight="16dp" />
+
+            <View
+                android:id="@+id/line_1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:background="#FFF5F5F5"
+                app:layout_constraintTop_toBottomOf="@+id/et_stage_amount" />
+
+            <TextView
+                android:id="@+id/tv_over_tips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:paddingTop="10dp"
+                android:textColor="#FFFF600A"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/line_1"
+                tools:text="已超过账单应付，请重新输入" />
+            <!--tools:text="可分期金额小于฿200"-->
+
+            <TextView
+                android:id="@+id/tv_stage_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:paddingBottom="10dp"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:textColor="#FFA6A6A6"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@+id/tv_over_tips"
+                tools:text="当前应付฿123.00,最高可分期฿123.00" />
+
+            <View
+                android:id="@+id/thumb_view"
+                android:layout_width="match_parent"
+                android:layout_height="7dp"
+                android:background="#FFF5F5F5"
+                app:layout_constraintTop_toBottomOf="@+id/tv_stage_detail" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycle_stage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ctl_stage_info"
+                android:layout_marginTop="7dp"
+                android:background="#FFFFFFFF"
+                android:focusableInTouchMode="false"
+                app:layout_constraintTop_toBottomOf="@+id/thumb_view" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="#FFF5F5F5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recycle_stage" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <TextView
+        android:id="@+id/tv_confirm_stage"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:gravity="center"
+        android:textColor="#FFFFFFFF"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+</android.support.constraint.ConstraintLayout>

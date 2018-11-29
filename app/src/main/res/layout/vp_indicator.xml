@@ -1,0 +1,50 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coordinator_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/fab1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        app:elevation="0dp">
+
+        <cn.bingoogolapple.bgabanner.BGABanner
+            android:id="@+id/banner"
+            style="@style/BannerDefaultStyle"
+            android:layout_height="160dp"
+            app:banner_indicatorGravity="bottom|center_horizontal"
+            app:banner_transitionEffect="alpha"
+            app:layout_scrollFlags="scroll" />
+<!--
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            app:tabIndicatorColor="@color/transparent"
+            app:tabTextAppearance="@style/MyInfoTabLayoutStyle"
+            app:tabTextColor="@color/custom_black_color" />
+-->
+
+    </android.support.design.widget.AppBarLayout>
+
+   <!-- <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:scrollbars="none"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>-->
+
+</android.support.design.widget.CoordinatorLayout>

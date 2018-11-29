@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="white">#ffffff</color>
+    <color name="custom_black_color">#323232</color>
+    <color name="c_303030">#303030</color>
+    <color name="c_f0f0f0">#f0f0f0</color>
+    <color name="c_e8e8e8">#e8e8e8</color>
+
+    <color name="dropmenu_bg_shadow">#7000</color>
+    <color name="drop_pop_menu_bg_color">#a0000000</color>
+    <color name="cascading_menu_choose_item_bg">@color/white</color>
+    <color name="cascading_menu_choose_item_selected_bg">@color/c_f0f0f0</color>
+    <color name="cascading_menu_choose_item_text_color">@color/c_303030</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="half_transparent">#60000000</color>
+</resources>
