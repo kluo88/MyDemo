@@ -12,4 +12,8 @@
         <item>is_online</item>
     </string-array>
 
+
+    <string name="to_expand_hint">全文</string>
+    <string name="to_shrink_hint">收起</string>
+
 </resources>

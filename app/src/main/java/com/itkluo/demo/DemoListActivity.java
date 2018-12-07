@@ -8,7 +8,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.itkluo.ConstraintLayoutActivity;
 import com.itkluo.demo.aidl.ClientActivity2;
 import com.itkluo.demo.binder.ClientActivity;
 
@@ -23,7 +22,9 @@ public class DemoListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo_list);
         ListView listView = (ListView) findViewById(R.id.listView);
-        String[] values = {"使用Binder进行IPC通信", "使用AIDL进行IPC通信", "图片轮播", "ViewPage列表中gridview", "下拉级联菜单", "点击箭头显示下拉菜单", "ConstraintLayout嵌套在ScrollView里面"};
+        String[] values = {"使用Binder进行IPC通信", "使用AIDL进行IPC通信", "图片轮播", "ViewPage列表中gridview", "下拉级联菜单", "点击箭头显示下拉菜单", "ConstraintLayout嵌套在ScrollView里面"
+                , "CoordinatorLayout嵌套滑动", "CoordinatorLayout嵌套ListView", "可扩展收缩的FlowLayout", "过度绘制布局(设置/辅助功能/开发者选项/，打开调试GPU过度绘制选项)", "内存MAT分析",
+                "伸缩TextView--CollapsibleTextView"};
         //List<String> list = Arrays.asList(values);
         //Arrays.asList(values)返回的是一个只读的List，不能进行add和remove
         //new ArrayList<>(Arrays.asList(values))则是一个可写的List，可以进行add和remove
@@ -56,10 +57,31 @@ public class DemoListActivity extends AppCompatActivity {
                     case 6:
                         DemoListActivity.this.startActivity(new Intent(DemoListActivity.this, ConstraintLayoutActivity.class));
                         break;
+                    case 7:
+                        DemoListActivity.this.startActivity(new Intent(DemoListActivity.this, CoordinatorLayoutActivity.class));
+                        break;
+                    case 8:
+                        DemoListActivity.this.startActivity(new Intent(DemoListActivity.this, CoordinatorListViewActivity.class));
+                        break;
+                    case 9:
+                        DemoListActivity.this.startActivity(new Intent(DemoListActivity.this, FlowLayoutActivity.class));
+                        break;
+                    case 10:
+                        DemoListActivity.this.startActivity(new Intent(DemoListActivity.this, OverDrawActivity.class));
+                        break;
+                    case 12:
+                        DemoListActivity.this.startActivity(new Intent(DemoListActivity.this, MemoryActivity.class));
+                        break;
+                    case 13:
+                        DemoListActivity.this.startActivity(new Intent(DemoListActivity.this, CollapsibleTextViewActivity.class));
+                        break;
                     default:
                         break;
                 }
             }
         });
+
+        DemoListActivity.this.startActivity(new Intent(DemoListActivity.this, CollapsibleTextViewActivity.class));
+
     }
 }

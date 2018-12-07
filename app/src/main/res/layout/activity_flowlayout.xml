@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:onClick="refill"
+            android:text="重新填充"
+            android:textSize="16sp" />
+
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="clickClear"
+            android:text="清除"
+
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+
+    <EditText
+        android:id="@+id/edit_search"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/search_input_bg"
+        android:drawableLeft="@drawable/search_seicon_gray"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:hint="搜搜你想搜"
+        android:imeOptions="actionSearch"
+        android:paddingStart="10dp"
+        android:singleLine="true"
+        android:textColor="@color/c_303030"
+        android:textColorHint="#999999"
+        android:textCursorDrawable="@null"
+        android:textSize="14sp" />
+
+
+    <com.itkluo.demo.widget.FlowLayout.FlowLayout
+        android:id="@+id/flowLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <ImageView
+        android:id="@+id/arrow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:onClick="clickArrow"
+        android:padding="10dp"
+        android:src="@drawable/icon_down_arrow"
+        android:visibility="visible" />
+
+    <TextView
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:id="@+id/tv_log_tip"
+        android:textSize="14sp"
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+
+        <EditText
+            android:layout_marginLeft="10dp"
+            android:id="@+id/edit_add_num"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:inputType="numberDecimal"
+            android:textSize="16sp"
+            android:text="4"
+            />
+
+        <Button
+            android:id="@+id/btn_add_some_data"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:onClick="addSomeData"
+            android:text="添加4天数"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

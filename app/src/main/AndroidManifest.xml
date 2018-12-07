@@ -58,7 +58,19 @@
         <activity android:name=".aidl.ClientActivity2"></activity>
         <activity android:name=".CascadingMenuActivity" />
         <activity android:name=".DownMenuActivity" />
-        <activity android:name="com.itkluo.ConstraintLayoutActivity" />
+        <activity android:name=".ConstraintLayoutActivity" />
+        <activity android:name=".CoordinatorLayoutActivity"
+            android:windowSoftInputMode="stateHidden"
+            />
+        <activity android:name=".CoordinatorListViewActivity"
+            android:windowSoftInputMode="stateHidden"
+            />  <activity android:name=".FlowLayoutActivity"
+            android:windowSoftInputMode="stateHidden"
+            />
+        <activity android:name=".OverDrawActivity" />
+        <activity android:name=".MemoryActivity" />
+        <activity android:name=".TestLayoutActivity" />
+        <activity android:name=".CollapsibleTextViewActivity" />
 
         <service
             android:name=".aidl.ComputeService2"
