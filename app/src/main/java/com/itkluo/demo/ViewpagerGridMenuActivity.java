@@ -28,18 +28,23 @@ public class ViewpagerGridMenuActivity extends AppCompatActivity {
     }
 
     private String[] images = new String[]{
-            "http://res.qhhznt.com/rmadmin75/jpg/1540435312_3083.jpg"
-            , "http://res.qhhznt.com/rmadmin75/png/1540435268_4949.png"
-            , "http://res.qhhznt.com/rmadmin75/png/1540353097_6681.png"
-            , "http://res.qhhznt.com/rmadmin75/png/1540287662_1406.png"
-            , "http://res.qhhznt.com/rmadmin75/png/1540352831_4606.png"
-            , "http://res.qhhznt.com/rmadmin75/png/1540287677_795.png"
-            , "http://res.qhhznt.com/rmadmin75/jpg/1540263689_9531.jpg"
-            , "http://res.qhhznt.com/rmadmin75/jpg/1540263771_5758.jpg"
+            "http://res.qhhznt.com/rmadmin54/png/1543285623_1191.png"
+            , "http://res.qhhznt.com/rmadmin54/png/1543285641_5616.png"
+            , "http://res.qhhznt.com/rmadmin54/png/1543285655_7051.png"
+            , "http://res.qhhznt.com/rmadmin54/png/1543285678_5689.png"
+            , "http://res.qhhznt.com/rmadmin54/png/1543285700_633.png"
+            , "http://res.qhhznt.com/rmadmin54/png/1543285720_4604.png"
+            , "http://res.qhhznt.com/rmadmin54/png/1543285735_9929.png"
+            , "http://res.qhhznt.com/rmadmin54/png/1543285762_6368.png"
+            , "http://res.qhhznt.com/rmadmin54/png/1543285795_6508.png"
+            , "http://res.qhhznt.com/rmadmin54/png/1543285831_5092.png"
+            , "http://res.qhhznt.com/rmadmin54/png/1543285847_2127.png"
+            , "http://res.qhhznt.com/rmadmin54/png/1543285864_5579.png"
+            , "http://res.qhhznt.com/rmadmin54/png/1543285881_4559.png"
     };
 
     private void initData() {
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < images.length; i++) {
             strs.add(new MenuModel("美食" + i, images[i%images.length]));
         }
     }

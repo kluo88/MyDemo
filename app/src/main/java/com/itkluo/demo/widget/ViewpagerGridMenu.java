@@ -51,7 +51,7 @@ public class ViewpagerGridMenu extends LinearLayout implements ViewPager.OnPageC
     private int mPointContainerLeftRightPadding;
     private int mPointDrawableResId = R.drawable.bga_banner_selector_point_solid;
     private int mColumnsOnePage = 4;//每页显示的列数
-    private int mRowsOnePage = 1;//每页显示的行数
+    private int mRowsOnePage = 2;//每页显示的行数
     private int mCountOnePage;//每页显示的总数 mColumnsOnePage * mRowsOnePage
     private int mTotalPage;//总页数
     private Drawable mPointContainerBackgroundDrawable;
@@ -158,7 +158,7 @@ public class ViewpagerGridMenu extends LinearLayout implements ViewPager.OnPageC
             if (mTotalPage == 1) {
                 subList = models;
             } else if (i == mTotalPage - 1) {
-                subList = models.subList(i, mTotalPage);
+                subList = models.subList(i * mCountOnePage, itemCount);
             } else {
                 subList = models.subList(i * mCountOnePage, i * mCountOnePage + mCountOnePage);
             }

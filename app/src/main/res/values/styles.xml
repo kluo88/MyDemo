@@ -41,7 +41,7 @@
     </style>
 
     <style name="MyInfoTabLayoutStyle">
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
 </resources>

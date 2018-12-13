@@ -81,7 +81,7 @@ public class DemoListActivity extends AppCompatActivity {
             }
         });
 
-        DemoListActivity.this.startActivity(new Intent(DemoListActivity.this, CollapsibleTextViewActivity.class));
+        DemoListActivity.this.startActivity(new Intent(DemoListActivity.this, ViewpagerGridMenuActivity.class));
 
     }
 }

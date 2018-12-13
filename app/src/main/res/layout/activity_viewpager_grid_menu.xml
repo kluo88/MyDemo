@@ -18,11 +18,8 @@
             app:banner_indicatorGravity="bottom|center_horizontal"
             app:banner_transitionEffect="alpha"
             app:layout_scrollFlags="scroll"
-
             />
-<!--
-
-        <android.support.design.widget.TabLayout
+<!-- <android.support.design.widget.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="46dp"
@@ -35,7 +32,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-   <!-- <LinearLayout
+    <LinearLayout
         android:id="@+id/ll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -43,10 +40,20 @@
         android:scrollbars="none"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.v4.view.ViewPager
+      <!--  <android.support.v4.view.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>-->
+            android:layout_height="match_parent" />-->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffff"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            />
+
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
