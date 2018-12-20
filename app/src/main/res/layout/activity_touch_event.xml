@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.itkluo.demo.exam.touchEvent.MyViewGroup02 xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="200dp"
+    android:layout_height="200dp"
+    android:background="#0f0">
+
+    <com.itkluo.demo.exam.touchEvent.MyViewGroup01
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="#f00">
+
+        <com.itkluo.demo.exam.touchEvent.MyView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="#00f" />
+    </com.itkluo.demo.exam.touchEvent.MyViewGroup01>
+
+</com.itkluo.demo.exam.touchEvent.MyViewGroup02>
