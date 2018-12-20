@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.itkluo.demo.widget.MyTabLayout
+        android:id="@+id/tab"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/holo_green_dark"
+        app:tabBackground="@android:color/holo_purple"
+        app:tabContentStart="10dp"
+        app:tabIndicatorColor="#377fff"
+        app:tabMinWidth="0dp"
+        app:tabMode="scrollable"
+        app:tabSelectedTextColor="#377fff"
+        app:tabTextAppearance="@style/ConnectionTabLayoutStyle"
+        app:tabTextColor="#999999"
+        style="@style/tabIndicatorDrawableStyle"
+        />
+
+    <!--   Tab的“Margin”
+       TabLayout开始位置的偏移量：
+       app:tabContentStart="100dp"-->
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/tab_indicator" />
+
+
+</LinearLayout>

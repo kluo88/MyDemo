@@ -33,7 +33,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"></activity>
+            android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity
             android:name=".ScreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
@@ -47,26 +47,28 @@
         <activity
             android:name=".RxPermissionTestActivity"
             android:label="RxPermission in Activity" />
-        <activity android:name=".ScreenOnOffActivity"></activity>
-        <activity android:name=".binder.ClientActivity"></activity>
+        <activity android:name=".ScreenOnOffActivity" />
+        <activity android:name=".binder.ClientActivity" />
         <activity android:name=".VpIndicateActivity" />
         <activity android:name=".ViewpagerGridMenuActivity" />
 
         <service
             android:name="binder.ComputeService"
             android:process=":remote" />
-        <activity android:name=".aidl.ClientActivity2"></activity>
+
+        <activity android:name=".aidl.ClientActivity2" />
         <activity android:name=".CascadingMenuActivity" />
         <activity android:name=".DownMenuActivity" />
         <activity android:name=".ConstraintLayoutActivity" />
-        <activity android:name=".CoordinatorLayoutActivity"
-            android:windowSoftInputMode="stateHidden"
-            />
-        <activity android:name=".CoordinatorListViewActivity"
-            android:windowSoftInputMode="stateHidden"
-            />  <activity android:name=".FlowLayoutActivity"
-            android:windowSoftInputMode="stateHidden"
-            />
+        <activity
+            android:name=".CoordinatorLayoutActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".CoordinatorListViewActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".FlowLayoutActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".OverDrawActivity" />
         <activity android:name=".MemoryActivity" />
         <activity android:name=".TestLayoutActivity" />
@@ -75,6 +77,9 @@
         <service
             android:name=".aidl.ComputeService2"
             android:process=":remote" />
+
+        <activity android:name=".exam.ProgressActivity"></activity>
+        <activity android:name=".MyTabLayoutActivity" />
     </application>
 
 </manifest>
