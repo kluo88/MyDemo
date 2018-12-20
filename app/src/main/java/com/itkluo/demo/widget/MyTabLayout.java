@@ -187,6 +187,7 @@ public class MyTabLayout extends HorizontalScrollView {
     private int mTabIndicatorDrawableResId;//指示线的图标
     private int mTabIndicatorWidth;//指示线的宽度
     private static final int DEFAULT_TAB_INDICATOR_WIDTH = 14; // dps
+    private Bitmap mTabIndicatorBitmap;
 
 
     private OnTabSelectedListener mSelectedListener;
@@ -236,6 +237,9 @@ public class MyTabLayout extends HorizontalScrollView {
 
         mTabIndicatorWidth = a.getDimensionPixelSize(R.styleable.TabLayout_myTabIndicatorWidth, dpToPx(DEFAULT_TAB_INDICATOR_WIDTH));
         mTabIndicatorDrawableResId = a.getResourceId(R.styleable.TabLayout_myTabIndicatorDrawable, mTabIndicatorDrawableResId);
+        if (mTabIndicatorDrawableResId != 0) {
+            mTabIndicatorBitmap = BitmapFactory.decodeResource(getContext().getResources(), mTabIndicatorDrawableResId);
+        }
 
         //*****************************自定义部分 END*****************************
 
@@ -1972,16 +1976,13 @@ public class MyTabLayout extends HorizontalScrollView {
                     }
                 }
 
-                if (mTabIndicatorDrawableResId != 0) {//设置图片作为指示线
-                    Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(), mTabIndicatorDrawableResId);
-                    if (bitmap != null) {
-                        // 指定图片绘制区域
-                        Rect src = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-                        // 指定图片在屏幕上显示的区域
-                        Rect dst = new Rect(mIndicatorLeft, getHeight() - mSelectedIndicatorHeight, mIndicatorRight, getHeight());
-                        // 绘制图片
-                        canvas.drawBitmap(bitmap, src, dst, null);
-                    }
+                if (mTabIndicatorBitmap != null) {//设置图片作为指示线
+                    // 指定图片绘制区域
+                    Rect src = new Rect(0, 0, mTabIndicatorBitmap.getWidth(), mTabIndicatorBitmap.getHeight());
+                    // 指定图片在屏幕上显示的区域
+                    Rect dst = new Rect(mIndicatorLeft, getHeight() - mSelectedIndicatorHeight, mIndicatorRight, getHeight());
+                    // 绘制图片
+                    canvas.drawBitmap(mTabIndicatorBitmap, src, dst, null);
                 } else {
                     //画出下划线：正常的只是画个矩形，但是UI个SB脑洞大开，非要搞个带圆角的
 //                canvas.drawRect(mIndicatorLeft, getHeight() - mSelectedIndicatorHeight, mIndicatorRight, getHeight(), mSelectedIndicatorPaint);
