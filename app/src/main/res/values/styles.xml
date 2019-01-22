@@ -54,4 +54,36 @@
         <item name="myTabIndicatorDrawable">@drawable/tab_indicator</item>
         <item name="tabIndicatorHeight">3dp</item>
     </style>
+
+    <!--抢购倒计时view默认style-->
+    <style name="CountdownTimerViewTimeTextStyle">
+        <item name="android:layout_width">14dp</item>
+        <item name="android:layout_height">18dp</item>
+        <item name="android:background">@drawable/bg_timer_countdown</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="CountdownTimerViewColonTextStyle">
+        <item name="android:layout_width">20dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">#474747</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:text">:</item>
+    </style>
+
+    <declare-styleable name="CountDownTimerView">
+        <attr name="timer_textSize" format="dimension" />
+    </declare-styleable>
+
+    <!-- 底部弹出popupwindow 动画 -->
+    <style name="BottomPopupAnimation">
+        <item name="android:windowEnterAnimation">@anim/bottom_popup_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/bottom_popup_out_anim</item>
+    </style>
+
+
 </resources>

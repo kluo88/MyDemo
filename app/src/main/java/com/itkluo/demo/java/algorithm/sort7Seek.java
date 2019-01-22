@@ -82,9 +82,34 @@ public class sort7Seek {
 
     }
 
+    public static void bubbleSort(int[] arr) {
+        int temp;
+        boolean flag;//是否交换的标志
+        for (int i = 0; i < arr.length - 1; i++) {//表示趟数， 一共arr.length - 1趟
+            flag = false;
+            //从底部开始比较， 每次得到最小值往上冒
+            for (int j = arr.length - 1; j > i; j--) {
+                if (arr[j] < arr[j - 1]) {
+                    temp = arr[j];
+                    arr[j] = arr[j - 1];
+                    arr[j - 1] = temp;
+                    flag = true;
+                }
+            }
+            if (!flag) {
+                break;
+            }
+
+        }
+
+    }
+
     public static void main(String[] args) throws Exception {
-        bubbleSort();
-        selectSort();
+//        bubbleSort();
+//        selectSort();
+        int[] array = {32, 21, 34, 6, 8, 11, 88, 3, 10};
+        bubbleSort(array);
+        System.out.println("冒泡排后：" + Arrays.toString(array));
     }
 
 
