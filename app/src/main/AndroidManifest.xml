@@ -24,7 +24,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".DemoListActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize">
+        >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -81,6 +82,7 @@
         <activity android:name=".exam.ProgressActivity"></activity>
         <activity android:name=".MyTabLayoutActivity" />
         <activity android:name=".CountDownTimerViewActivity" />
+        <activity android:name=".TitleDownMenuActivity" />
     </application>
 
 </manifest>

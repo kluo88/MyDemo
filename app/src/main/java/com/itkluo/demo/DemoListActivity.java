@@ -17,6 +17,7 @@ import com.itkluo.demo.aidl.ClientActivity2;
 import com.itkluo.demo.binder.ClientActivity;
 import com.itkluo.demo.exam.ProgressActivity;
 import com.itkluo.demo.model.GoodsDetailBean;
+import com.itkluo.demo.optimize.LeakCauseSample;
 import com.itkluo.demo.widget.GoodRulePopupWindow;
 
 import java.io.InputStream;
@@ -36,7 +37,7 @@ public class DemoListActivity extends AppCompatActivity {
         mainLayout = findViewById(R.id.mainLayout);
         String[] values = {"使用Binder进行IPC通信", "使用AIDL进行IPC通信", "图片轮播", "ViewPage列表中gridview", "下拉级联菜单", "点击箭头显示下拉菜单", "ConstraintLayout嵌套在ScrollView里面"
                 , "CoordinatorLayout嵌套滑动", "CoordinatorLayout嵌套ListView", "可扩展收缩的FlowLayout", "过度绘制布局(设置/辅助功能/开发者选项/，打开调试GPU过度绘制选项）", "内存MAT分析",
-                "伸缩TextView--CollapsibleTextView", "测试 Demo", "改造系统TabLayout", "抢购倒计时", "商品规格选择弹窗"};
+                "伸缩TextView--CollapsibleTextView", "测试 Demo", "改造系统TabLayout", "抢购倒计时", "商品规格选择弹窗", "点击右上角弹出下拉菜单"};
         //List<String> list = Arrays.asList(values);
         //Arrays.asList(values)返回的是一个只读的List，不能进行add和remove
         //new ArrayList<>(Arrays.asList(values))则是一个可写的List，可以进行add和remove
@@ -100,11 +101,19 @@ public class DemoListActivity extends AppCompatActivity {
                         initJsonData();
                         showPopupwindow();
                         break;
+                    case 17:
+                        DemoListActivity.this.startActivity(new Intent(DemoListActivity.this, TitleDownMenuActivity.class));
+                        break;
                     default:
                         break;
                 }
             }
         });
+
+
+        //内容泄露示例,  旋转屏幕观察Android monitor内存情况
+//        LeakCauseSample instance = LeakCauseSample.getInstance(this);
+        LeakCauseSample instance = LeakCauseSample.getInstance(getApplicationContext());
 
 
     }
