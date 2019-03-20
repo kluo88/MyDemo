@@ -14,8 +14,8 @@ import android.widget.PopupWindow;
 
 import com.google.gson.Gson;
 import com.itkluo.demo.aidl.ClientActivity2;
-import com.itkluo.demo.binder.ClientActivity;
 import com.itkluo.demo.exam.ProgressActivity;
+import com.itkluo.demo.java.list.SpecInfo;
 import com.itkluo.demo.model.GoodsDetailBean;
 import com.itkluo.demo.optimize.LeakCauseSample;
 import com.itkluo.demo.widget.GoodRulePopupWindow;
@@ -50,7 +50,8 @@ public class DemoListActivity extends AppCompatActivity {
                 String item = adapter.getItem(position);
                 switch (position) {
                     case 0:
-                        DemoListActivity.this.startActivity(new Intent(DemoListActivity.this, ClientActivity.class));
+//                        DemoListActivity.this.startActivity(new Intent(DemoListActivity.this, ClientActivity.class));
+                        SpecInfo.jsonToMapTest();
                         break;
                     case 1:
                         DemoListActivity.this.startActivity(new Intent(DemoListActivity.this, ClientActivity2.class));
@@ -120,6 +121,7 @@ public class DemoListActivity extends AppCompatActivity {
 
 
     }
+
 
     private GoodsDetailBean data;
     private GoodRulePopupWindow rulePopup;
