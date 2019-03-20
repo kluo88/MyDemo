@@ -83,6 +83,7 @@
         <activity android:name=".MyTabLayoutActivity" />
         <activity android:name=".CountDownTimerViewActivity" />
         <activity android:name=".TitleDownMenuActivity" />
+        <activity android:name=".RxJavaDemoAct" />
     </application>
 
 </manifest>
