@@ -61,7 +61,7 @@ public class SpecInfo implements Serializable {
 
     public static void jsonToMapTest() {
         SpecInfo obj = JsonManager.parseJson(SpecInfo.json2(), SpecInfo.class);
-        // json工具实际解析成LinkedTreeMap,  所以就保证了顺序
+        // Google的Gson工具实际解析成LinkedTreeMap,  所以就保证了顺序
         Map<String, String> spec_name = obj.getSpec_name();
 
         Iterator<Map.Entry<String, String>> iterator = spec_name.entrySet().iterator();

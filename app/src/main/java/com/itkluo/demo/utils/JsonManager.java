@@ -5,7 +5,6 @@ import android.util.Log;
 import com.google.gson.Gson;
 
 import java.lang.reflect.Type;
-//import com.alibaba.fastjson.JSON;
 
 /**
  * json数据解析
