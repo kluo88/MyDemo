@@ -85,5 +85,14 @@
         <item name="android:windowExitAnimation">@anim/bottom_popup_out_anim</item>
     </style>
 
+    <style name="pop_anim_style">
+        <item name="android:windowEnterAnimation">@anim/pop_in</item>
+        <item name="android:windowExitAnimation">@anim/pop_out</item>
+    </style>
+    <!--更新app对话框-->
+    <style name="Theme_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
 
 </resources>

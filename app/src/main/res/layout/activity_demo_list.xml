@@ -7,7 +7,9 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context="com.itkluo.demo.DemoListActivity">
+    tools:context="com.itkluo.demo.DemoListActivity"
+    android:paddingBottom="20dp"
+    >
 
     <ListView
         android:id="@+id/listView"
