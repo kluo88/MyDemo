@@ -1,6 +1,6 @@
 package com.itkluo.demo.java.list;
 
-import com.itkluo.demo.utils.JsonManager;
+import com.itkluo.demo.utils.JsonUtils;
 
 import java.io.Serializable;
 import java.util.Iterator;
@@ -60,7 +60,7 @@ public class SpecInfo implements Serializable {
     }
 
     public static void jsonToMapTest() {
-        SpecInfo obj = JsonManager.parseJson(SpecInfo.json2(), SpecInfo.class);
+        SpecInfo obj = JsonUtils.jsonToObject(SpecInfo.json2(), SpecInfo.class);
         // Google的Gson工具实际解析成LinkedTreeMap,  所以就保证了顺序
         Map<String, String> spec_name = obj.getSpec_name();
 

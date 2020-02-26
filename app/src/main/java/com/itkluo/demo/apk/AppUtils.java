@@ -1,4 +1,4 @@
-package com.itkluo.demo;
+package com.itkluo.demo.apk;
 
 import android.app.Activity;
 import android.content.Intent;

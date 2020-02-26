@@ -1,5 +1,6 @@
 package com.itkluo.demo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.PopupWindow;
 
 import com.google.gson.Gson;
 import com.itkluo.demo.aidl.ClientActivity2;
+import com.itkluo.demo.apk.GetApkFileInfoActivity;
 import com.itkluo.demo.exam.ProgressActivity;
 import com.itkluo.demo.java.list.SpecInfo;
 import com.itkluo.demo.model.GoodsDetailBean;
@@ -29,16 +31,24 @@ import java.util.List;
 
 public class DemoListActivity extends AppCompatActivity {
     private ViewGroup mainLayout;
+    private AppCompatActivity mActivity;
 
+    /**
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo_list);
+        mActivity = DemoListActivity.this;
         ListView listView = (ListView) findViewById(R.id.listView);
         mainLayout = findViewById(R.id.mainLayout);
         String[] values = {"使用Binder进行IPC通信", "使用AIDL进行IPC通信", "图片轮播", "ViewPage列表中gridview", "下拉级联菜单", "点击箭头显示下拉菜单", "ConstraintLayout嵌套在ScrollView里面"
                 , "CoordinatorLayout嵌套滑动", "CoordinatorLayout嵌套ListView", "可扩展收缩的FlowLayout", "过度绘制布局(设置/辅助功能/开发者选项/，打开调试GPU过度绘制选项）", "内存MAT分析",
-                "伸缩TextView--CollapsibleTextView", "测试 Demo", "改造系统TabLayout", "抢购倒计时", "商品规格选择弹窗", "点击右上角弹出下拉菜单", "RxJava操作符","使用用TomCat实现软件的版本检测"};
+                "伸缩TextView--CollapsibleTextView", "测试 Demo", "改造系统TabLayout", "抢购倒计时", "商品规格选择弹窗", "点击右上角弹出下拉菜单", "RxJava操作符", "使用用TomCat实现软件的版本检测"
+                , "获取路径下未安装的apk信息", "跳转到veb应用商店的搜索页面"
+        };
+
         //List<String> list = Arrays.asList(values);
         //Arrays.asList(values)返回的是一个只读的List，不能进行add和remove
         //new ArrayList<>(Arrays.asList(values))则是一个可写的List，可以进行add和remove
@@ -112,13 +122,21 @@ public class DemoListActivity extends AppCompatActivity {
                     case 19:
                         DemoListActivity.this.startActivity(new Intent(DemoListActivity.this, IndexActivity.class));
                         break;
+                    case 20:
+                        DemoListActivity.this.startActivity(new Intent(DemoListActivity.this, GetApkFileInfoActivity.class));
+                        break;
+                    case 21:
+                        search(mActivity, "腾讯", "");
+                        //方式二 目标在 AnroidManifest 文件中给 activity 节点设置 Android:exported="true"，
+//                        Intent intent = new Intent();
+//                        intent.setClassName("com.vebos.appstore", "com.vebos.appstore.ui.search.SearchMainActivity");
+//                        startActivity(intent);
+                        break;
                     default:
                         break;
                 }
             }
         });
-
-
         //内容泄露示例,  旋转屏幕观察Android monitor内存情况
 //        LeakCauseSample instance = LeakCauseSample.getInstance(this);
         LeakCauseSample instance = LeakCauseSample.getInstance(getApplicationContext());
@@ -126,6 +144,23 @@ public class DemoListActivity extends AppCompatActivity {
 
     }
 
+
+    /**
+     * 应用商店的搜索页面
+     * {@link com.vebos.appstore.ui.search.SearchMainActivity}
+     *
+     * @param context
+     * @param keyword     关键字搜索
+     * @param packageName
+     */
+    public static void search(Context context, String keyword, String packageName) {
+        Intent intent = new Intent();
+        intent.setAction("com.vebos.appstore.search");
+        intent.putExtra("keyword", keyword);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+//        intent.putExtra("packageName", packageName);
+    }
 
     private GoodsDetailBean data;
     private GoodRulePopupWindow rulePopup;

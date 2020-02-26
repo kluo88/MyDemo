@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp" />
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btn_get_uninstall_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="获取未安装apk信息"
+        android:textAllCaps="false" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="扫描存储apk的目录，解析apk信息、生成apk的png文件、生成json数据"
+        android:textSize="12sp" />
+
+
+    <Button
+        android:id="@+id/btn_get_json"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="扫描存储apk的目录，生成apk列表数据json" />
+
+
+</LinearLayout>
