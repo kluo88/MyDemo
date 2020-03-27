@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '26.0.3'
 
     defaultConfig {
         applicationId "com.itkluo.demo"
@@ -27,17 +27,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
             //对apk进行重命名
-            applicationVariants.all { variant ->
-                variant.outputs.each { output ->
-                    def outputFile = output.outputFile
-                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
-//                        def fileName = "MyDemo_v${defaultConfig.versionName}" + "_" +
-//                                variant.buildType.name + ".apk"
-                        def fileName = "MyDemo.apk"
-                        output.outputFileName = fileName
+            android.applicationVariants.all { variant ->
+                def fileName//获取当前时间的"YYYY-MM-dd"格式。
+                variant.outputs.each {
+                    if (it.outputFileName != null && it.outputFileName.endsWith('.apk')) {
+                        fileName = "MyDemo" + ".apk"
+                        it.outputFileName = fileName
                     }
                 }
             }
+
         }
 
         debug {
@@ -58,18 +57,22 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.2.1'
-    compile 'com.jakewharton:butterknife:8.2.1'
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'io.reactivex.rxjava2:rxjava:2.1.7'
-    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.3@aar'
+    implementation 'com.jakewharton:butterknife:8.2.1'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.7'
+    implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.3@aar'
     //如果想要实现条件触发获取权限(结合RxBinding使用)的情况，则还需要依赖RxBinding开源库
-    compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
-    compile 'com.android.support:design:26.0.0'
-    compile 'com.android.support:cardview-v7:26.0.0'
-    compile 'cn.bingoogolapple:bga-banner:2.2.1@aar'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.google.guava:guava:18.0'
-    compile 'com.google.code.gson:gson:2.2.4'
+    implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+    implementation 'com.android.support:design:26.0.0'
+    implementation 'com.android.support:cardview-v7:26.0.0'
+    implementation 'cn.bingoogolapple:bga-banner:2.2.1@aar'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.google.guava:guava:18.0'
+    implementation 'com.google.code.gson:gson:2.2.4'
     implementation files('libs/fastjson-1.2.2.jar')
     implementation files('libs/xUtils-2.6.14.jar')
+
+    // 仅在debug包启用BlockCanary进行卡顿监控和提示的话，可以这么用
+    debugCompile 'com.github.markzhai:blockcanary-android:1.5.0'
+    releaseCompile 'com.github.markzhai:blockcanary-no-op:1.5.0'
 }
