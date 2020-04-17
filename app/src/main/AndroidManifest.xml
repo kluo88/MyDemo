@@ -2,26 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.itkluo.demo">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!-- 允许读取网络状态 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!-- 允许读取wifi网络状态 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-
-    <!-- 允许 弹出系统级别的AlterDialog -->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-
-    <!-- <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" /> -->
-
-    <uses-permission android:name="android.permission.DEVICE_POWER"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-
-    <!--添加震动权限-->
-    <uses-permission android:name="android.permission.VIBRATE" />
-
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -30,8 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".PhoneInfoActivity"></activity>
         <activity android:name=".DemoListActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -44,11 +25,8 @@
             android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity
             android:name=".ScreenActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
-
-        <!-- <receiver android:name=".MainActivity$NetworkChangeReceiver"> -->
+            android:configChanges="orientation|keyboardHidden|screenSize" /> <!-- <receiver android:name=".MainActivity$NetworkChangeReceiver"> -->
         <!-- </receiver> -->
-
         <activity android:name=".OptimActivity" />
         <activity android:name=".AppInfoActivity" />
         <activity android:name=".MainActivity2" />
@@ -60,11 +38,8 @@
         <activity android:name=".VpIndicateActivity" />
         <activity android:name=".ViewpagerGridMenuActivity" />
 
-        <service
-            android:name="binder.ComputeService"
-            android:process=":remote" />
-
         <activity android:name=".aidl.ClientActivity2" />
+
         <activity android:name=".CascadingMenuActivity" />
         <activity android:name=".DownMenuActivity" />
         <activity android:name=".ConstraintLayoutActivity" />
@@ -81,24 +56,36 @@
         <activity android:name=".MemoryActivity" />
         <activity android:name=".TestLayoutActivity" />
         <activity android:name=".CollapsibleTextViewActivity" />
+        <activity android:name=".exam.ProgressActivity" />
 
+        <activity android:name=".MyTabLayoutActivity" />
+        <activity android:name=".CountDownTimerViewActivity" />
+
+        <activity android:name=".TitleDownMenuActivity" />
+        <activity android:name=".RxJavaDemoAct" />
+        <activity
+            android:name=".tomcat.IndexActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" />
+        <activity android:name=".apk.GetApkFileInfoActivity" />
+        <activity android:name=".sernsor.SensorSampleActivity" />
+        <activity android:name=".ScreenShotActivity" />
+        <service
+            android:name="binder.ComputeService"
+            android:process=":remote" />
         <service
             android:name=".aidl.ComputeService2"
             android:process=":remote" />
         <service android:name=".system.ScreenShotService" />
-
-        <activity android:name=".exam.ProgressActivity"></activity>
-        <activity android:name=".MyTabLayoutActivity" />
-        <activity android:name=".CountDownTimerViewActivity" />
-        <activity android:name=".TitleDownMenuActivity" />
-        <activity android:name=".RxJavaDemoAct" />
-
-        <activity
-            android:name=".tomcat.IndexActivity"
-            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"></activity>
-        <activity android:name=".apk.GetApkFileInfoActivity" />
-        <activity android:name=".sernsor.SensorSampleActivity" />
-        <activity android:name=".ScreenShotActivity" />
     </application>
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 允许读取网络状态 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 允许读取wifi网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 允许 弹出系统级别的AlterDialog -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> <!-- <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" /> -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.DEVICE_POWER" /> <!-- 添加震动权限 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <uses-permission android:name="android.permission.VIBRATE" />
 
 </manifest>

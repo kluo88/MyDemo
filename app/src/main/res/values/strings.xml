@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">MyDemo</string>
 
+    <string name="to_expand_hint">全文</string>
+    <string name="to_shrink_hint">收起</string>
+
+
     <string-array name="search_peoples_state_name">
         <item>认证用户</item>
         <item>会员用户</item>
@@ -11,9 +15,5 @@
         <item>is_vip</item>
         <item>is_online</item>
     </string-array>
-
-
-    <string name="to_expand_hint">全文</string>
-    <string name="to_shrink_hint">收起</string>
 
 </resources>
