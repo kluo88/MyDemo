@@ -3,6 +3,11 @@
     package="com.itkluo.demo">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-permission android:name="android.permission.NFC" />
+    <!-- 要求当前设备必须要有NFC芯片 -->
+    <uses-feature android:name="android.hardware.nfc" android:required="true" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -12,7 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".PhoneInfoActivity"></activity>
-        <activity android:name=".DemoListActivity">
+        <activity android:name=".DemoListActivity"
+            android:launchMode="singleTask"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -69,6 +76,22 @@
         <activity android:name=".apk.GetApkFileInfoActivity" />
         <activity android:name=".sernsor.SensorSampleActivity" />
         <activity android:name=".ScreenShotActivity" />
+        <activity
+            android:name=".NFCCheckActivity"
+            android:launchMode="singleTop">
+       <!--     <intent-filter>
+                <action android:name="android.nfc.action.TECH_DISCOVERED" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.TECH_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+            <intent-filter>
+                <action android:name="android.nfc.action.TAG_DISCOVERED" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>-->
+        </activity>
+
         <service
             android:name="binder.ComputeService"
             android:process=":remote" />

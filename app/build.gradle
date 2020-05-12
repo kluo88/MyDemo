@@ -25,18 +25,6 @@ android {
             zipAlignEnabled true
 //            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
-            //对apk进行重命名
-            android.applicationVariants.all { variant ->
-                def fileName//获取当前时间的"YYYY-MM-dd"格式。
-                variant.outputs.each {
-                    if (it.outputFileName != null && it.outputFileName.endsWith('.apk')) {
-                        fileName = "MyDemo" + ".apk"
-                        it.outputFileName = fileName
-                    }
-                }
-            }
-
         }
 
         debug {
@@ -48,8 +36,48 @@ android {
 
     }
 
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            if (outputFileName != null && outputFileName.endsWith('.apk')) {
+                if (variant.buildType.name == 'release') {
+                    def apkName = "MyDemo" + "_${variant.versionName}" + "_${variant.buildType.name}"
+                    if (!variant.flavorName.isEmpty()) {
+                        apkName += "_${variant.flavorName}"
+                    }
+                    outputFileName = apkName + "_(" + applicationId + ")" + "_${assembleApkTime()}" + ".apk"
+                } else {
+                    def apkName = "MyDemo" + "_${variant.versionName}" + "_${variant.buildType.name}"
+                    if (!variant.flavorName.isEmpty()) {
+                        apkName += "_${variant.flavorName}"
+                    }
+                    outputFileName = apkName + "_(" + applicationId + ")" + ".apk"
+                }
+            }
+        }
+    }
+
+    flavorDimensions "channel"
+    productFlavors {
+        fla1 {
+            applicationId "com.itkluo.demo1"
+            versionCode 1
+            versionName "1.1.1." + versionCode
+        }
+
+        fla2 {
+            applicationId "com.itkluo.demo2"
+            versionCode 2
+            versionName "1.1.1." + versionCode
+        }
+
+    }
 
 }
+
+static def assembleApkTime() {
+    return new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone("GMT+08:00"))
+}
+
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
