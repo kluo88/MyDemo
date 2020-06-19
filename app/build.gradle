@@ -25,6 +25,8 @@ android {
             zipAlignEnabled true
 //            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "BUGLY_DEBUG", "false" // 是否输出LOG信息
+            resValue "string", "myname", "test1"
         }
 
         debug {
@@ -32,6 +34,8 @@ android {
             zipAlignEnabled false
 //            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "BUGLY_DEBUG", "true"
+            resValue "string", "myname", "test2"
         }
 
     }
@@ -39,18 +43,23 @@ android {
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
             if (outputFileName != null && outputFileName.endsWith('.apk')) {
+                //variant.flavorName: fla2   variant.buildType.name:debug   variant.name:fla2Debug
+                println "variant.buildType.name:" + "${variant.buildType.name}" + "_variant.name:" + "${variant.name}" + "_variant.flavorName:" + "${variant.flavorName}"
+
                 if (variant.buildType.name == 'release') {
-                    def apkName = "MyDemo" + "_${variant.versionName}" + "_${variant.buildType.name}"
+                    def flavorName = ""
                     if (!variant.flavorName.isEmpty()) {
-                        apkName += "_${variant.flavorName}"
+                        flavorName = "-${variant.flavorName}"
                     }
-                    outputFileName = apkName + "_(" + applicationId + ")" + "_${assembleApkTime()}" + ".apk"
+                    def apkName = "MyDemo" + flavorName + "-${variant.buildType.name}"
+                    outputFileName = apkName + "_${variant.versionName}" + "_(" + applicationId + ")" + "_${assembleApkTime()}" + ".apk"
                 } else {
-                    def apkName = "MyDemo" + "_${variant.versionName}" + "_${variant.buildType.name}"
+                    def flavorName = ""
                     if (!variant.flavorName.isEmpty()) {
-                        apkName += "_${variant.flavorName}"
+                        flavorName = "-${variant.flavorName}"
                     }
-                    outputFileName = apkName + "_(" + applicationId + ")" + ".apk"
+                    def apkName = "MyDemo" + flavorName + "-${variant.buildType.name}"
+                    outputFileName = apkName + "_${variant.versionName}" + "_(" + applicationId + ")" + ".apk"
                 }
             }
         }
@@ -67,7 +76,7 @@ android {
         fla2 {
             applicationId "com.itkluo.demo2"
             versionCode 2
-            versionName "1.1.1." + versionCode
+            versionName "1.1.2." + versionCode
         }
 
     }

@@ -3,9 +3,13 @@ package com.itkluo.demo;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -25,6 +29,8 @@ import com.itkluo.demo.model.GoodsDetailBean;
 import com.itkluo.demo.sernsor.SensorSampleActivity;
 import com.itkluo.demo.system.ShotUtils;
 import com.itkluo.demo.tomcat.IndexActivity;
+import com.itkluo.demo.tts.AudioUtil;
+import com.itkluo.demo.tts2.VoicePlayActivity;
 import com.itkluo.demo.utils.VibrateAndToneUtil;
 import com.itkluo.demo.widget.GoodRulePopupWindow;
 
@@ -53,7 +59,8 @@ public class DemoListActivity extends AppCompatActivity {
         String[] values = {"使用Binder进行IPC通信", "使用AIDL进行IPC通信", "图片轮播", "ViewPage列表中gridview", "下拉级联菜单", "点击箭头显示下拉菜单", "ConstraintLayout嵌套在ScrollView里面"
                 , "CoordinatorLayout嵌套滑动", "CoordinatorLayout嵌套ListView", "可扩展收缩的FlowLayout", "过度绘制布局(设置/辅助功能/开发者选项/，打开调试GPU过度绘制选项）", "内存MAT分析",
                 "伸缩TextView--CollapsibleTextView", "测试 Demo", "改造系统TabLayout", "抢购倒计时", "商品规格选择弹窗", "点击右上角弹出下拉菜单", "RxJava操作符", "使用用TomCat实现软件的版本检测"
-                , "获取路径下未安装的apk信息", "跳转到veb应用商店的搜索页面", "传感器", "震动和提示音", "卡顿检测工具BlockCanary", "截图", "获取手机信息", "二维码", "NFC"
+                , "获取路径下未安装的apk信息", "跳转到veb应用商店的搜索页面", "传感器", "震动和提示音", "卡顿检测工具BlockCanary", "截图", "获取手机信息"
+                , "系统信息", "二维码", "NFC", "启动其他App", "连续播放语音", "连续播放语音2"
         };
 
         //List<String> list = Arrays.asList(values);
@@ -164,10 +171,44 @@ public class DemoListActivity extends AppCompatActivity {
                         mActivity.startActivity(new Intent(mActivity, PhoneInfoActivity.class));
                         break;
                     case 27:
-                        //二维码  http://wuxiaolong.me/2016/04/22/zxing/
+                        mActivity.startActivity(new Intent(mActivity, AppInfoActivity.class));
                         break;
                     case 28:
+                        //二维码  http://wuxiaolong.me/2016/04/22/zxing/
+                        break;
+                    case 29:
                         mActivity.startActivity(new Intent(mActivity, NFCCheckActivity.class));
+                        break;
+                    case 30:
+                        startApp(mActivity, "com.veb.facecheck");
+                        break;
+                    case 31:
+                        List<Integer> list1 = new ArrayList<>();
+                        list1.add(R.raw.mp3_key_code_1);
+                        list1.add(R.raw.mp3_unit_bai);
+                        list1.add(R.raw.mp3_key_code_2);
+                        list1.add(R.raw.mp3_unit_shi);
+                        //MediaPlayer播放
+//                        VoiceUtil1.getInstance().play(list1);
+
+                        //SoundPool播放
+                        AudioUtil.getInstance().play(R.raw.mp3_key_code_1
+                                , R.raw.mp3_unit_bai, R.raw.mp3_key_code_2
+                                , R.raw.mp3_unit_shi, R.raw.mp3_key_code_8
+//                                , R.raw.mp3_key_code_dot, R.raw.mp3_key_code_5, R.raw.mp3_key_code_6, R.raw.mp3_unit_yuan
+                        );
+
+                        Log.d(TAG, "onItemClick: "+ getRawFileVoiceTime(R.raw.mp3_key_code_1));
+
+                        //SoundPool播放
+//                        VoiceUtil.getInstance().play(R.raw.mp3_key_code_1
+//                                , R.raw.mp3_unit_bai, R.raw.mp3_key_code_2
+////                                , R.raw.mp3_unit_shi, R.raw.mp3_key_code_8, R.raw.mp3_key_code_dot
+////                                , R.raw.mp3_key_code_5, R.raw.mp3_key_code_6, R.raw.mp3_unit_yuan
+//                        );
+                        break;
+                    case 32:
+                        mActivity.startActivity(new Intent(mActivity, VoicePlayActivity.class));
                         break;
                     default:
                         break;
@@ -179,6 +220,48 @@ public class DemoListActivity extends AppCompatActivity {
         //Android 5.0以上 截图工具，先要弹窗由用户授权截取屏幕
 //        ShotUtils.getInstance().init(mActivity);
     }
+
+    private int getRawFileVoiceTime(int rawId) {
+        int duration = 0;
+        MediaPlayer mediaPlayer = new MediaPlayer();
+        try {
+            Uri uri = Uri.parse("android.resource://" + mActivity.getPackageName() + "/" + rawId);
+            mediaPlayer.setDataSource(mActivity, uri);
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+//
+//            AssetFileDescriptor file = mContext.getResources().openRawResourceFd(rawId);
+//            mediaPlayer.setDataSource(file.getFileDescriptor(), file.getStartOffset(), file.getLength());
+//            file.close();
+
+            mediaPlayer.prepare();
+            duration = mediaPlayer.getDuration();
+
+            mediaPlayer.stop();
+            mediaPlayer.reset();
+            mediaPlayer.release();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return duration;
+    }
+
+
+    /**
+     * start app
+     *
+     * @param context
+     * @param packageName
+     */
+    public static void startApp(@NonNull Context context, @NonNull String packageName) {
+        Intent intent = context.getPackageManager()
+                .getLaunchIntentForPackage(packageName);
+        if (intent != null) {
+            context.startActivity(intent);
+        } else {
+            Log.e(TAG, "startApp, Package does not exist.");
+        }
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

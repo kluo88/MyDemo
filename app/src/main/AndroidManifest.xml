@@ -91,6 +91,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>-->
         </activity>
+        <activity android:name=".tts2.VoicePlayActivity" />
 
         <service
             android:name="binder.ComputeService"

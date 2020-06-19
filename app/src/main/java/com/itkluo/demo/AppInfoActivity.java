@@ -22,9 +22,18 @@ public class AppInfoActivity extends AppCompatActivity {
         content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 SystemUtils.getPkgUsageStats();
             }
         });
+
+
+        TextView textView = (TextView) findViewById(R.id.text);
+        String systemInfoStr = SystemInfoTools.getBuildInfo();
+        systemInfoStr += "-------------------------------------\r\n";
+        systemInfoStr += SystemInfoTools.getSystemPropertyInfo();
+        textView.setText(systemInfoStr);
+
+
+
     }
 }
