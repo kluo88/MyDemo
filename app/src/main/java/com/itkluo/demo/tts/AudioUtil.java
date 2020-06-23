@@ -10,10 +10,16 @@ import android.os.Build;
 import android.util.Log;
 
 import com.itkluo.demo.MyApplication;
+import com.itkluo.demo.tts2.VoiceBuilder;
+import com.itkluo.demo.tts2.VoiceTextTemplate;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * 连续播放音频
@@ -27,7 +33,10 @@ public class AudioUtil {
     private final Context mContext;
     private SoundPool mSoundPool;
     private Map<Integer, Integer> mSoundIdDurationMap;
-    private PlayThread mPlayThread;
+    private ExecutorService mSubmit;
+    private volatile BlockingQueue<Integer> soundQueue = new LinkedBlockingQueue<>();
+    private List<Integer> mVoiceList;
+
 
     private final static class HolderClass {
         private final static AudioUtil INSTANCE = new AudioUtil();
@@ -70,8 +79,11 @@ public class AudioUtil {
                 mSoundPool.release();
                 mSoundPool = null;
             }
-            if (mPlayThread != null) {
-                mPlayThread.interrupt();
+            if (mSubmit != null) {
+                mSubmit.shutdown();
+            }
+            if (soundQueue != null) {
+                soundQueue.clear();
             }
             if (mSoundIdDurationMap != null) {
                 mSoundIdDurationMap.clear();
@@ -81,63 +93,85 @@ public class AudioUtil {
         }
     }
 
+
     /**
-     * 音频播放线程
+     * 播放语音
+     * 自定义格式，支持拆分播放数字
+     *
+     * @param voiceBuilder
      */
-    private class PlayThread extends Thread {
-        @Override
-        public void run() {
-            try {
-                if (mSoundIdDurationMap == null || mSoundPool == null) {
-                    return;
-                }
-                Set<Integer> soundIdSet = mSoundIdDurationMap.keySet();
-                for (Integer soundId : soundIdSet) {
-                    mSoundPool.play(soundId, 1, 1, 1, 0, 1);
-                    try {
-                        //获取当前音频的时长
-                        Thread.sleep(mSoundIdDurationMap.get(soundId));
-//                        Thread.sleep(400);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+    public void play(VoiceBuilder voiceBuilder) {
+//        synchronized (AudioUtil.class) {
+        release();
+        if (voiceBuilder == null) {
+            return;
         }
+        if (AppConfig.noVoice) {
+            return;
+        }
+
+        mVoiceList = VoiceTextTemplate.genVoiceList(voiceBuilder);
+        if (mVoiceList.isEmpty()) {
+            return;
+        }
+
+        init();
+        //保存音效ID和对应的音效时长
+        mSoundIdDurationMap = new HashMap<>();
+        soundQueue.clear();
+        Integer[] soundIds;
+        for (int rawId : mVoiceList) {
+            soundIds = loadRaw(mContext, rawId);
+            soundQueue.add(soundIds[0]);
+            mSoundIdDurationMap.put(soundIds[0], soundIds[1]);
+        }
+        doPlay();
+//        }
     }
 
+
+    /**
+     * 播放语音
+     *
+     * @param rawIds
+     */
     public void play(int... rawIds) {
+//        synchronized (AudioUtil.class) {
         release();
+        if (AppConfig.noVoice) {
+            return;
+        }
         if (rawIds.length == 0) {
             return;
         }
         init();
         //保存音效ID和对应的音效时长
         mSoundIdDurationMap = new HashMap<>();
+        soundQueue.clear();
         Integer[] soundIds;
         for (int rawId : rawIds) {
             soundIds = loadRaw(mContext, rawId);
+            soundQueue.add(soundIds[0]);
             mSoundIdDurationMap.put(soundIds[0], soundIds[1]);
         }
-        playTone();
+        doPlay();
+//        }
     }
 
     /**
      * 播放一段提示音
      */
-    private void playTone() {
-        mPlayThread = new PlayThread();
-        mPlayThread.start();
+    private void doPlay() {
+        mSubmit = Executors.newSingleThreadExecutor();
+        mSubmit.submit(new VoicePlaySchedule());
     }
 
     /**
      * 加载音频文件
      */
-    private Integer[] loadRaw(Context context, int raw) {
-        int soundId = mSoundPool.load(context, raw, 1);
-        int duration = getRawFileVoiceTime(raw);
+    private Integer[] loadRaw(Context context, int rawId) {
+        int soundId = mSoundPool.load(context, rawId, 1);
+        int duration = getRawFileVoiceTime(rawId);
         Log.d(TAG, "loadRaw: " + "soundId-duration " + soundId + "-" + duration);
         return new Integer[]{soundId, duration};
     }
@@ -172,26 +206,32 @@ public class AudioUtil {
         return duration;
     }
 
+    private class VoicePlaySchedule implements Runnable {
 
-    public static String getRingDuring(String mUri) {
-        String duration = null;
-        android.media.MediaMetadataRetriever mmr = new android.media.MediaMetadataRetriever();
-        try {
-            if (mUri != null) {
-                HashMap<String, String> headers = null;
-                if (headers == null) {
-                    headers = new HashMap<String, String>();
-                    headers.put("User-Agent", "Mozilla/5.0 (Linux; U; Android 4.4.2; zh-CN; MW-KW-001 Build/JRO03C) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 UCBrowser/1.0.0.001 U4/0.8.0 Mobile Safari/533.1");
+        @Override
+        public void run() {
+            synchronized (AudioUtil.class) {
+                if (soundQueue == null || mSoundIdDurationMap == null || mSoundPool == null) {
+                    return;
                 }
-                mmr.setDataSource(mUri, headers);
+                while (soundQueue.size() > 0) {
+                    try {
+                        int soundId = soundQueue.take();
+                        long lastAsyncPlayStartTime = System.currentTimeMillis();
+                        mSoundPool.play(soundId, 1, 1, 1, 0, 1);
+                        while (true) {
+                            //播放完一个音频
+                            if (System.currentTimeMillis() > lastAsyncPlayStartTime + mSoundIdDurationMap.get(soundId)) {
+                                break;
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-            duration = mmr.extractMetadata(android.media.MediaMetadataRetriever.METADATA_KEY_DURATION);
-        } catch (Exception ex) {
-        } finally {
-            mmr.release();
         }
-        Log.e(TAG, "duration " + duration);
-        return duration;
     }
+
 
 }

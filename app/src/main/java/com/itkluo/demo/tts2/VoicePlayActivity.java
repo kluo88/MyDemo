@@ -12,6 +12,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.itkluo.demo.R;
+import com.itkluo.demo.tts.AudioCode;
+import com.itkluo.demo.tts.AudioUtil;
 
 /**
  * @author luobingyong
@@ -26,11 +28,13 @@ public class VoicePlayActivity extends AppCompatActivity {
     private LinearLayout llMoneyList;
     private Switch switchView;
     private VoiceBuilder mVoiceBuilder;
+    private int type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voice_play);
+        type = getIntent().getIntExtra("type", 0);
         initView();
         initClick();
     }
@@ -55,18 +59,32 @@ public class VoicePlayActivity extends AppCompatActivity {
                     editText.setText(amount);
                 }
 
+
+                if (type == 0) {//MediaPlayer播放
 //            VoicePlay.with(MainActivity.this).play(amount, mCheckNum);
 
-                mVoiceBuilder = new VoiceBuilder.Builder()
+                    mVoiceBuilder = new VoiceBuilder.Builder()
 //                        .start(AudioCode.audio_idcheck_main, AudioCode.audio_idcheck_temp_hint)
-                        .number(amount)
+                            .number(amount)
 //                        .unit(AudioCode.audio_unit_du)
-                        .isOriginNum(false)
+                            .isOriginNum(false)
 //                        .end(AudioCode.audio_idcheck_pass)
-                        .builder();
-                VoicePlayService.getInstance().play(mVoiceBuilder);
+                            .builder();
+                    VoicePlayService.getInstance().play(mVoiceBuilder);
 
-                llMoneyList.addView(getTextView(amount), 0);
+                    llMoneyList.addView(getTextView(amount), 0);
+                } else {//SoundPool播放
+                    mVoiceBuilder = new VoiceBuilder.Builder()
+                        .start(AudioCode.audio_idcheck_main, AudioCode.audio_idcheck_temp_hint)
+                            .number(amount)
+//                        .unit(AudioCode.audio_unit_du)
+                            .isOriginNum(false)
+                        .end(AudioCode.audio_idcheck_pass)
+                            .builder();
+                    AudioUtil.getInstance().play(mVoiceBuilder);
+
+                    llMoneyList.addView(getTextView(amount), 0);
+                }
 
 
 //            editText.setText("");

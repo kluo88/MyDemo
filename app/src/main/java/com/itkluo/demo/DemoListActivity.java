@@ -29,7 +29,6 @@ import com.itkluo.demo.model.GoodsDetailBean;
 import com.itkluo.demo.sernsor.SensorSampleActivity;
 import com.itkluo.demo.system.ShotUtils;
 import com.itkluo.demo.tomcat.IndexActivity;
-import com.itkluo.demo.tts.AudioUtil;
 import com.itkluo.demo.tts2.VoicePlayActivity;
 import com.itkluo.demo.utils.VibrateAndToneUtil;
 import com.itkluo.demo.widget.GoodRulePopupWindow;
@@ -60,7 +59,7 @@ public class DemoListActivity extends AppCompatActivity {
                 , "CoordinatorLayout嵌套滑动", "CoordinatorLayout嵌套ListView", "可扩展收缩的FlowLayout", "过度绘制布局(设置/辅助功能/开发者选项/，打开调试GPU过度绘制选项）", "内存MAT分析",
                 "伸缩TextView--CollapsibleTextView", "测试 Demo", "改造系统TabLayout", "抢购倒计时", "商品规格选择弹窗", "点击右上角弹出下拉菜单", "RxJava操作符", "使用用TomCat实现软件的版本检测"
                 , "获取路径下未安装的apk信息", "跳转到veb应用商店的搜索页面", "传感器", "震动和提示音", "卡顿检测工具BlockCanary", "截图", "获取手机信息"
-                , "系统信息", "二维码", "NFC", "启动其他App", "连续播放语音", "连续播放语音2"
+                , "系统信息", "二维码", "NFC", "启动其他App", "MediaPlayer拼接播放数字语音", "SoundPool拼接播放数字语音", "发广播激活百度ota"
         };
 
         //List<String> list = Arrays.asList(values);
@@ -191,24 +190,27 @@ public class DemoListActivity extends AppCompatActivity {
                         //MediaPlayer播放
 //                        VoiceUtil1.getInstance().play(list1);
 
-                        //SoundPool播放
-                        AudioUtil.getInstance().play(R.raw.mp3_key_code_1
-                                , R.raw.mp3_unit_bai, R.raw.mp3_key_code_2
-                                , R.raw.mp3_unit_shi, R.raw.mp3_key_code_8
-//                                , R.raw.mp3_key_code_dot, R.raw.mp3_key_code_5, R.raw.mp3_key_code_6, R.raw.mp3_unit_yuan
-                        );
-
-                        Log.d(TAG, "onItemClick: "+ getRawFileVoiceTime(R.raw.mp3_key_code_1));
-
-                        //SoundPool播放
-//                        VoiceUtil.getInstance().play(R.raw.mp3_key_code_1
-//                                , R.raw.mp3_unit_bai, R.raw.mp3_key_code_2
-////                                , R.raw.mp3_unit_shi, R.raw.mp3_key_code_8, R.raw.mp3_key_code_dot
-////                                , R.raw.mp3_key_code_5, R.raw.mp3_key_code_6, R.raw.mp3_unit_yuan
-//                        );
+                        Intent intent1 = new Intent(mActivity, VoicePlayActivity.class);
+                        intent1.putExtra("type", 0);
+                        mActivity.startActivity(intent1);
                         break;
                     case 32:
-                        mActivity.startActivity(new Intent(mActivity, VoicePlayActivity.class));
+                        //SoundPool播放
+//                        AudioUtil.getInstance().play(R.raw.mp3_key_code_1
+//                                , R.raw.mp3_unit_bai, R.raw.mp3_key_code_2
+//                                , R.raw.mp3_unit_shi, R.raw.mp3_key_code_8
+////                                , R.raw.mp3_key_code_dot, R.raw.mp3_key_code_5, R.raw.mp3_key_code_6, R.raw.mp3_unit_yuan
+//                        );
+
+                        Intent intent2 = new Intent(mActivity, VoicePlayActivity.class);
+                        intent2.putExtra("type", 1);
+                        mActivity.startActivity(intent2);
+                        break;
+
+                    case 33:
+                        Intent intent = new Intent("action_init_bai_du_ota");
+//                        intent.setPackage(mActivity.getPackageName());
+                        mActivity.sendBroadcast(intent);
                         break;
                     default:
                         break;
