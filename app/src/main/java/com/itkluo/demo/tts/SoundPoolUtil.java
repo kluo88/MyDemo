@@ -28,8 +28,8 @@ import java.util.concurrent.LinkedBlockingQueue;
  * @author luobingyong
  * @date 2020/6/9
  */
-public class AudioUtil {
-    private static final String TAG = "AudioUtil";
+public class SoundPoolUtil {
+    private static final String TAG = "SoundPoolUtil";
     private final Context mContext;
     private SoundPool mSoundPool;
     private Map<Integer, Integer> mSoundIdDurationMap;
@@ -39,14 +39,14 @@ public class AudioUtil {
 
 
     private final static class HolderClass {
-        private final static AudioUtil INSTANCE = new AudioUtil();
+        private final static SoundPoolUtil INSTANCE = new SoundPoolUtil();
     }
 
-    public static AudioUtil getInstance() {
-        return AudioUtil.HolderClass.INSTANCE;
+    public static SoundPoolUtil getInstance() {
+        return SoundPoolUtil.HolderClass.INSTANCE;
     }
 
-    private AudioUtil() {
+    private SoundPoolUtil() {
         mContext = MyApplication.getInstance().getApplicationContext();
     }
 
@@ -64,7 +64,7 @@ public class AudioUtil {
         } else {
             mSoundPool = new SoundPool(60, AudioManager.STREAM_MUSIC, 8);
         }
-        mSoundPool = new SoundPool(60, AudioManager.STREAM_MUSIC, 8);
+//        mSoundPool = new SoundPool(60, AudioManager.STREAM_MUSIC, 8);
         //设置资源加载监听
 //        mSoundPool.setOnLoadCompleteListener(new MyOnLoadCompleteListener());
     }
@@ -96,12 +96,11 @@ public class AudioUtil {
 
     /**
      * 播放语音
-     * 自定义格式，支持拆分播放数字
      *
-     * @param voiceBuilder
+     * @param voiceBuilder 自定义格式，支持拆分播放数字
      */
     public void play(VoiceBuilder voiceBuilder) {
-//        synchronized (AudioUtil.class) {
+//        synchronized (SoundPoolUtil.class) {
         release();
         if (voiceBuilder == null) {
             return;
@@ -133,10 +132,10 @@ public class AudioUtil {
     /**
      * 播放语音
      *
-     * @param rawIds
+     * @param rawIds 音频id数组
      */
     public void play(int... rawIds) {
-//        synchronized (AudioUtil.class) {
+//        synchronized (SoundPoolUtil.class) {
         release();
         if (AppConfig.noVoice) {
             return;
@@ -210,7 +209,7 @@ public class AudioUtil {
 
         @Override
         public void run() {
-            synchronized (AudioUtil.class) {
+            synchronized (SoundPoolUtil.class) {
                 if (soundQueue == null || mSoundIdDurationMap == null || mSoundPool == null) {
                     return;
                 }

@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.itkluo.demo.R;
 import com.itkluo.demo.tts.AudioCode;
-import com.itkluo.demo.tts.AudioUtil;
+import com.itkluo.demo.tts.SoundPoolUtil;
 
 /**
  * @author luobingyong
@@ -75,13 +75,13 @@ public class VoicePlayActivity extends AppCompatActivity {
                     llMoneyList.addView(getTextView(amount), 0);
                 } else {//SoundPool播放
                     mVoiceBuilder = new VoiceBuilder.Builder()
-                        .start(AudioCode.audio_idcheck_main, AudioCode.audio_idcheck_temp_hint)
+                            .start(AudioCode.audio_idcheck_temp_hint)
                             .number(amount)
-//                        .unit(AudioCode.audio_unit_du)
+                            .unit(AudioCode.audio_unit_du)
                             .isOriginNum(false)
-                        .end(AudioCode.audio_idcheck_pass)
+                            .end(AudioCode.audio_idcheck_temp_low, AudioCode.audio_idcheck_not_pass)
                             .builder();
-                    AudioUtil.getInstance().play(mVoiceBuilder);
+                    SoundPoolUtil.getInstance().play(mVoiceBuilder);
 
                     llMoneyList.addView(getTextView(amount), 0);
                 }

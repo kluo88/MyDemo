@@ -151,7 +151,7 @@ public class DemoListActivity extends AppCompatActivity {
                     case 23:
                         VibrateAndToneUtil.getInstance().vibrateAndPlayTone();
                         break;
-                    case 24:
+                    case 24://卡顿模拟
                         System.out.println("Start test BlockCanary");
                         SystemClock.sleep(10_000);
                         System.out.println("处理其他业务逻辑");
@@ -187,7 +187,7 @@ public class DemoListActivity extends AppCompatActivity {
                         list1.add(R.raw.mp3_unit_bai);
                         list1.add(R.raw.mp3_key_code_2);
                         list1.add(R.raw.mp3_unit_shi);
-                        //MediaPlayer播放
+                        //MediaPlayer播放   可参考 https://blog.csdn.net/qq_34908107/article/details/76423519
 //                        VoiceUtil1.getInstance().play(list1);
 
                         Intent intent1 = new Intent(mActivity, VoicePlayActivity.class);
@@ -195,8 +195,8 @@ public class DemoListActivity extends AppCompatActivity {
                         mActivity.startActivity(intent1);
                         break;
                     case 32:
-                        //SoundPool播放
-//                        AudioUtil.getInstance().play(R.raw.mp3_key_code_1
+                        //SoundPool播放   待参考优化 https://github.com/jiangkang/KTools/tree/master/app/src/main/java/com/jiangkang/ktools/audio
+//                        SoundPoolUtil.getInstance().play(R.raw.mp3_key_code_1
 //                                , R.raw.mp3_unit_bai, R.raw.mp3_key_code_2
 //                                , R.raw.mp3_unit_shi, R.raw.mp3_key_code_8
 ////                                , R.raw.mp3_key_code_dot, R.raw.mp3_key_code_5, R.raw.mp3_key_code_6, R.raw.mp3_unit_yuan
@@ -207,6 +207,7 @@ public class DemoListActivity extends AppCompatActivity {
                         mActivity.startActivity(intent2);
                         break;
 
+                        //另外一种优化，支付宝使用SequenceInputStream合并几个音频播放，解决播放的衔接停顿
                     case 33:
                         Intent intent = new Intent("action_init_bai_du_ota");
 //                        intent.setPackage(mActivity.getPackageName());

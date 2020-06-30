@@ -4,9 +4,9 @@ import android.app.Application;
 import android.os.Handler;
 import android.text.TextUtils;
 
-import com.github.moduth.blockcanary.BlockCanary;
-import com.itkluo.demo.optimize.AppBlockCanaryContext;
 import com.itkluo.demo.utils.ProcessUtils;
+
+//import com.github.moduth.blockcanary.BlockCanary;
 
 /**
  * @author DELL
@@ -22,7 +22,7 @@ public final class MyApplication extends Application {
                 getPackageName())) {
             sInstance = this;
             sHandler = new android.os.Handler();
-            BlockCanary.install(this, new AppBlockCanaryContext()).start();
+//            BlockCanary.install(this, new AppBlockCanaryContext()).start();
         }
     }
 
