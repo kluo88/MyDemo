@@ -59,7 +59,7 @@ public class DemoListActivity extends AppCompatActivity {
                 , "CoordinatorLayout嵌套滑动", "CoordinatorLayout嵌套ListView", "可扩展收缩的FlowLayout", "过度绘制布局(设置/辅助功能/开发者选项/，打开调试GPU过度绘制选项）", "内存MAT分析",
                 "伸缩TextView--CollapsibleTextView", "测试 Demo", "改造系统TabLayout", "抢购倒计时", "商品规格选择弹窗", "点击右上角弹出下拉菜单", "RxJava操作符", "使用用TomCat实现软件的版本检测"
                 , "获取路径下未安装的apk信息", "跳转到veb应用商店的搜索页面", "传感器", "震动和提示音", "卡顿检测工具BlockCanary", "截图", "获取手机信息"
-                , "系统信息", "二维码", "NFC", "启动其他App", "MediaPlayer拼接播放数字语音", "SoundPool拼接播放数字语音", "发广播激活百度ota"
+                , "系统信息", "二维码", "NFC", "启动其他App", "MediaPlayer拼接播放数字语音", "SoundPool拼接播放数字语音", "发广播激活百度ota","USB"
         };
 
         //List<String> list = Arrays.asList(values);
@@ -212,6 +212,10 @@ public class DemoListActivity extends AppCompatActivity {
                         Intent intent = new Intent("action_init_bai_du_ota");
 //                        intent.setPackage(mActivity.getPackageName());
                         mActivity.sendBroadcast(intent);
+                        break;
+                    case 34:
+                        //USB
+                        startActivity(new Intent(mActivity, UsbDevActivity.class));
                         break;
                     default:
                         break;

@@ -4,4 +4,11 @@
     <dimen name="cascading_menu_max_height">380dp</dimen>
 
     <dimen name="goods_rule_tag_height">33dp</dimen>
+
+    <!-- title_bar.xml 标题栏-->
+    <dimen name="title_view_margin">8dp</dimen>
+    <dimen name="title_view_padding">10dp</dimen>
+    <dimen name="title_layout_height">42dp</dimen>
+    <dimen name="title_size">40sp</dimen>
+
 </resources>

@@ -92,6 +92,7 @@
             </intent-filter>-->
         </activity>
         <activity android:name=".tts2.VoicePlayActivity" />
+        <activity android:name=".usb.wdreader.WdSSCardActivity" />
 
         <service
             android:name="binder.ComputeService"

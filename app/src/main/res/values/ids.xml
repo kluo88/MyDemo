@@ -3,4 +3,17 @@
     <item name="tag_first" type="id"></item>
     <item name="tag_second" type="id"></item>
     <item name="tag_pic" type="id"></item>
+
+    <!--R.layout.title_bar 固定IDs -->
+    <item name="title_bar_layout" type="id" />
+    <item name="back_llyt" type="id" />
+    <item name="back_iv" type="id" />
+    <item name="titile_tv" type="id" />
+    <item name="right1_iv" type="id" />
+    <item name="right2_iv" type="id" />
+    <item name="right_tv" type="id" />
+    <item name="left_tv" type="id" />
+    <item name="item_divider" type="id"/>
+    <item name="butReturn" type="id"/>
+
 </resources>
