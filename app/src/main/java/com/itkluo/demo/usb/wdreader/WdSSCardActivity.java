@@ -64,7 +64,7 @@ public class WdSSCardActivity extends BaseActivity implements UsbDevPermissionUt
         int retCode = mUsbDevUtil.searchUsb();
 
         if (retCode < 0) {
-            showErr("连接失败，请重试",0);
+            showErr("连接失败，请重试", 0);
         } else {
             UsbManager usbManager = mUsbDevUtil.getUsbManager();
             if (usbManager != null) {

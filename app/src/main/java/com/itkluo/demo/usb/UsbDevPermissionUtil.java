@@ -120,12 +120,24 @@ public class UsbDevPermissionUtil {
                             }
                         }
                         break;
-                    //USB设备绑定
+                    //USB设备绑定 监听mounted或者unmounted。
                     case VolumeInfo.ACTION_VOLUME_STATE_CHANGED:
-                        int state = intent.getIntExtra(VolumeInfo.EXTRA_VOLUME_STATE, VolumeInfo.STATE_UNMOUNTED);
-                        if (sVolumeState == VolumeInfo.STATE_UNMOUNTED && state == VolumeInfo.STATE_MOUNTED) {
+//                        int state = intent.getIntExtra(VolumeInfo.EXTRA_VOLUME_STATE, VolumeInfo.STATE_UNMOUNTED);
+//                        if (sVolumeState == VolumeInfo.STATE_UNMOUNTED && state == VolumeInfo.STATE_MOUNTED) {
+//                        }
+//                        sVolumeState = state;
+                        int state = intent.getIntExtra(VolumeInfo.EXTRA_VOLUME_STATE, -1);
+                        if (state == VolumeInfo.STATE_MOUNTED || state == VolumeInfo.STATE_MOUNTED_READ_ONLY) {
+                            DebugLog.i(TAG, "VolumeInfo mounted");
+                            if (mUsbDevListener != null) {
+//                                mUsbDevListener.onUsbDevMounted(usbDevice);
+                            }
+                        } else if (state == VolumeInfo.STATE_UNMOUNTED || state == VolumeInfo.STATE_BAD_REMOVAL) {
+                            DebugLog.i(TAG, "VolumeInfo unmounted");
+                            if (mUsbDevListener != null) {
+//                                mUsbDevListener.onUsbDevUnmounted(usbDevice);
+                            }
                         }
-                        sVolumeState = state;
                         break;
                 }
 
