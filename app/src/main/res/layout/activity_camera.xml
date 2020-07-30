@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="10dp"
+    tools:context=".MainActivity">
+
+    <include layout="@layout/title_bar_include" />
+
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:id="@+id/layoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/butReturn"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/switchcamera" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_marginLeft="48dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请求摄像头权限" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/textCameraType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutButton"
+        android:layout_centerHorizontal="true"
+        android:text="xxxx" />
+
+    <TextView
+        android:id="@+id/textInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textCameraType"
+        android:layout_centerHorizontal="true"
+        android:text="xxxx" />
+
+    <com.itkluo.demo.api.CameraView
+        android:id="@+id/cameraview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/textInfo" />
+</RelativeLayout>

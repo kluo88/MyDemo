@@ -47,20 +47,20 @@ android {
                 println "variant.buildType.name:" + "${variant.buildType.name}" + "_variant.name:" + "${variant.name}" + "_variant.flavorName:" + "${variant.flavorName}"
 
                 if (variant.buildType.name == 'release') {
-                    def flavorName = ""
+                    def apkName = "MyDemo" + "_${variant.versionName}" + "_${variant.buildType.name}"
                     if (!variant.flavorName.isEmpty()) {
-                        flavorName = "-${variant.flavorName}"
+                        apkName += "_${variant.flavorName}"
                     }
-                    def apkName = "MyDemo" + flavorName + "-${variant.buildType.name}"
-                    outputFileName = apkName + "_${variant.versionName}" + "_(" + applicationId + ")" + "_${assembleApkTime()}" + ".apk"
+                    outputFileName = apkName + "_${assembleApkTime()}" + ".apk"
+//                + "_"+applicationId
                 } else {
-                    def flavorName = ""
+                    def apkName = "MyDemo" + "_${variant.versionName}" + "_${variant.buildType.name}"
                     if (!variant.flavorName.isEmpty()) {
-                        flavorName = "-${variant.flavorName}"
+                        apkName += "_${variant.flavorName}"
                     }
-                    def apkName = "MyDemo" + flavorName + "-${variant.buildType.name}"
-                    outputFileName = apkName + "_${variant.versionName}" + "_(" + applicationId + ")" + ".apk"
+                    outputFileName = apkName + ".apk"
                 }
+
             }
         }
     }

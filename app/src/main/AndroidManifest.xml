@@ -93,6 +93,8 @@
         </activity>
         <activity android:name=".tts2.VoicePlayActivity" />
         <activity android:name=".usb.wdreader.WdSSCardActivity" />
+        <activity android:name=".api.CameraActivity" />
+        <activity android:name=".api.CameraActivity2" />
 
         <service
             android:name="binder.ComputeService"
@@ -112,5 +114,8 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera"/>
 
 </manifest>

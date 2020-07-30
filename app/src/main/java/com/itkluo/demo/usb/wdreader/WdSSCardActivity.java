@@ -55,7 +55,7 @@ public class WdSSCardActivity extends BaseActivity implements UsbDevPermissionUt
         wdhidreader = new HIDReader();
         mVendorId = WD_VENDOR_ID;
         mUsbDevUtil = new UsbDevPermissionUtil(mContext);
-        mUsbDevUtil.setProductId(mVendorId);
+        mUsbDevUtil.setVendorId(mVendorId);
         connectDev();
     }
 
@@ -185,6 +185,7 @@ public class WdSSCardActivity extends BaseActivity implements UsbDevPermissionUt
         ret = wdhidreader.ReadSSCard((byte) 0x15, output);
         if (ret == 0) {
             resultInfo.setText(output[0] + "|" + output[1] + "|" + output[2] + "|" + output[3] + "|" + output[4] + "|" + output[5] + "|" + output[6]);
+            Log.d(TAG, output[0] + "|" + output[1] + "|" + output[2] + "|" + output[3] + "|" + output[4] + "|" + output[5] + "|" + output[6]);
         } else {
             resultInfo.setText("读社保卡信息失败" + ret);
         }

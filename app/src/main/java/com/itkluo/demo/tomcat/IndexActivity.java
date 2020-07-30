@@ -310,7 +310,7 @@ public class IndexActivity extends Activity implements OnClickListener {
                             public void accept(Permission permission) throws Exception {
                                 if (permission.granted) {
                                     // 用户已经同意该权限
-                                    Log.e(TAG, permission.name + " is granted.");
+                                    Log.i(TAG, permission.name + " is granted.");
                                     Toast.makeText(context, permission.name + " is granted.", Toast.LENGTH_LONG).show();
                                     downloadAPK();
                                 } else if (permission.shouldShowRequestPermissionRationale) {

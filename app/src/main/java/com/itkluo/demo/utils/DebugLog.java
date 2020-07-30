@@ -2,8 +2,6 @@ package com.itkluo.demo.utils;
 
 import android.util.Log;
 
-import com.itkluo.demo.BuildConfig;
-
 
 /**
  * 用于调测代码时，log的打印
@@ -15,7 +13,8 @@ import com.itkluo.demo.BuildConfig;
 public class DebugLog {
     private static final String TAG_SUFFIX = "_test";
     private static String mTag = "DebugLog" + TAG_SUFFIX;
-    private static boolean sIsOutputLog = BuildConfig.DEBUG;
+//    private static boolean sIsOutputLog = BuildConfig.DEBUG;
+    private static boolean sIsOutputLog = false;
 
     /**
      * 打印info级别日志

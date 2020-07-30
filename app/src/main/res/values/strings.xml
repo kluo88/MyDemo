@@ -3,6 +3,7 @@
 
     <string name="to_expand_hint">全文</string>
     <string name="to_shrink_hint">收起</string>
+    <string name="switchcamera">切换摄像头</string>
 
 
     <string-array name="search_peoples_state_name">

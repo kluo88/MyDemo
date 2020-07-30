@@ -9,6 +9,7 @@
     android:orientation="vertical"
     tools:context="com.itkluo.demo.DemoListActivity"
     android:paddingBottom="20dp"
+
     >
 
     <ListView

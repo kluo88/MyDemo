@@ -1,5 +1,6 @@
 package com.itkluo.demo;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,9 +20,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.itkluo.demo.aidl.ClientActivity2;
+import com.itkluo.demo.api.CameraActivity;
 import com.itkluo.demo.apk.GetApkFileInfoActivity;
 import com.itkluo.demo.exam.ProgressActivity;
 import com.itkluo.demo.java.list.SpecInfo;
@@ -30,49 +33,68 @@ import com.itkluo.demo.sernsor.SensorSampleActivity;
 import com.itkluo.demo.system.ShotUtils;
 import com.itkluo.demo.tomcat.IndexActivity;
 import com.itkluo.demo.tts2.VoicePlayActivity;
+import com.itkluo.demo.usb.wdreader.WdSSCardActivity;
 import com.itkluo.demo.utils.VibrateAndToneUtil;
 import com.itkluo.demo.widget.GoodRulePopupWindow;
+import com.tbruyelle.rxpermissions2.Permission;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 public class DemoListActivity extends AppCompatActivity {
     private static final String TAG = "DemoListActivity";
     private ViewGroup mainLayout;
     private AppCompatActivity mActivity;
+    private int itemCount;
 
-    /**
-     *
-     */
+    private boolean isJustShow =true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mActivity = DemoListActivity.this;
+        if (isJustShow) {
+            //前后摄像头
+            startActivity(new Intent(mActivity, CameraActivity.class));
+            finish();
+            return;
+        }
+
         Log.d(TAG, "onCreate: ");
         setContentView(R.layout.activity_demo_list);
-        mActivity = DemoListActivity.this;
+
+        requestPermissions();
+
         ListView listView = (ListView) findViewById(R.id.listView);
         mainLayout = findViewById(R.id.mainLayout);
         String[] values = {"使用Binder进行IPC通信", "使用AIDL进行IPC通信", "图片轮播", "ViewPage列表中gridview", "下拉级联菜单", "点击箭头显示下拉菜单", "ConstraintLayout嵌套在ScrollView里面"
                 , "CoordinatorLayout嵌套滑动", "CoordinatorLayout嵌套ListView", "可扩展收缩的FlowLayout", "过度绘制布局(设置/辅助功能/开发者选项/，打开调试GPU过度绘制选项）", "内存MAT分析",
                 "伸缩TextView--CollapsibleTextView", "测试 Demo", "改造系统TabLayout", "抢购倒计时", "商品规格选择弹窗", "点击右上角弹出下拉菜单", "RxJava操作符", "使用用TomCat实现软件的版本检测"
                 , "获取路径下未安装的apk信息", "跳转到veb应用商店的搜索页面", "传感器", "震动和提示音", "卡顿检测工具BlockCanary", "截图", "获取手机信息"
-                , "系统信息", "二维码", "NFC", "启动其他App", "MediaPlayer拼接播放数字语音", "SoundPool拼接播放数字语音", "发广播激活百度ota","USB"
+                , "系统信息", "二维码", "NFC", "启动其他App", "MediaPlayer拼接播放数字语音", "SoundPool拼接播放数字语音", "发广播激活百度ota","USB","前后摄像头"
         };
+        itemCount = values.length;
 
         //List<String> list = Arrays.asList(values);
         //Arrays.asList(values)返回的是一个只读的List，不能进行add和remove
         //new ArrayList<>(Arrays.asList(values))则是一个可写的List，可以进行add和remove
         List<String> list = new ArrayList<>(Arrays.asList(values));
+        Collections.reverse(list);
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String item = adapter.getItem(position);
-                switch (position) {
+                int index = itemCount - 1 - position;
+                switch (index) {
                     case 0:
 //                        DemoListActivity.this.startActivity(new Intent(DemoListActivity.this, ClientActivity.class));
                         SpecInfo.jsonToMapTest();
@@ -209,14 +231,19 @@ public class DemoListActivity extends AppCompatActivity {
 
                         //另外一种优化，支付宝使用SequenceInputStream合并几个音频播放，解决播放的衔接停顿
                     case 33:
+                        //发广播激活百度ota
                         Intent intent = new Intent("action_init_bai_du_ota");
 //                        intent.setPackage(mActivity.getPackageName());
                         mActivity.sendBroadcast(intent);
                         break;
                     case 34:
                         //USB
-                        startActivity(new Intent(mActivity, UsbDevActivity.class));
+                        startActivity(new Intent(mActivity, WdSSCardActivity.class));
                         break;
+                    case 35:
+                        //前后摄像头
+                        startActivity(new Intent(mActivity, CameraActivity.class));
+//                        startActivity(new Intent(mActivity, CameraActivity2.class));
                     default:
                         break;
                 }
@@ -371,4 +398,31 @@ public class DemoListActivity extends AppCompatActivity {
         super.onPause();
         Log.d(TAG, "onPause: ");
     }
+
+    private void requestPermissions() {
+        RxPermissions rxPermission = new RxPermissions(this);
+        Disposable subscribe = rxPermission.requestEach(
+                Manifest.permission.CAMERA,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe(new Consumer<Permission>() {
+                    @Override
+                    public void accept(Permission permission) throws Exception {
+                        if (permission.granted) {
+                            // 用户已经同意该权限
+                            Log.i(TAG, permission.name + " is granted.");
+//                            Toast.makeText(mActivity, permission.name + " is granted.", Toast.LENGTH_LONG).show();
+                        } else if (permission.shouldShowRequestPermissionRationale) {
+                            // 用户拒绝了该权限，没有选中『不再询问』（Never ask again）,那么下次再次启动时，还会提示请求权限的对话框
+                            Log.e(TAG, permission.name + " is denied. More info should be provided.");
+                            Toast.makeText(mActivity, permission.name + " is denied. More info should be provided.", Toast.LENGTH_LONG).show();
+                        } else {
+                            // 用户拒绝了该权限，并且选中『不再询问』
+                            Log.e(TAG, permission.name + " is denied.");
+                            Toast.makeText(mActivity, permission.name + " is denied.", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+    }
+
 }
