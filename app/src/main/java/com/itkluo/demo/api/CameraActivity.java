@@ -155,8 +155,8 @@ public class CameraActivity extends BaseActivity {
         textInfo.setText(logStr.toString());
 
         // FIXME: 2020/7/28 切换显示所有摄像头
-//        frontIndex = 0;
-//        backIndex = 1;
+        frontIndex = 0;
+        backIndex = 1;
 
         currentCameraType = type;
 

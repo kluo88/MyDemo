@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#8f4363"
+   >
+
+
+    <ScrollView
+        android:id="@+id/outside"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="6dp"
+                android:background="@color/colorPrimary"
+                android:padding="5dp"
+                android:text="外部ScrollView"
+                android:textColor="@color/colorF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="6dp"
+                android:background="@color/colorPrimary"
+                android:padding="5dp"
+                android:text="外部ScrollView"
+                android:textColor="@color/colorF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="6dp"
+                android:background="@color/colorPrimary"
+                android:padding="5dp"
+                android:text="外部ScrollView"
+                android:textColor="@color/colorF" />
+
+            <com.itkluo.demo.exam.scrollviewswipe.in.InsideScrollView
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/colorPrimary"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="1"
+                        android:textColor="@color/colorF" />
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/colorPrimary"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="2"
+                        android:textColor="@color/colorF" />
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/colorPrimary"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="3"
+                        android:textColor="@color/colorF" />
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/colorPrimary"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="4"
+                        android:textColor="@color/colorF" />
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/colorPrimary"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="5"
+                        android:textColor="@color/colorF" />
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/colorPrimary"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="6"
+                        android:textColor="@color/colorF" />
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/colorPrimary"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="7"
+                        android:textColor="@color/colorF" />
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/colorPrimary"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="8"
+                        android:textColor="@color/colorF" />
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/colorPrimary"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="9"
+                        android:textColor="@color/colorF" />
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/colorPrimary"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="10"
+                        android:textColor="@color/colorF" />
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/colorPrimary"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="11"
+                        android:textColor="@color/colorF" />
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/colorPrimary"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="12"
+                        android:textColor="@color/colorF" />
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/colorPrimary"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="13"
+                        android:textColor="@color/colorF" />
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/colorPrimary"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="14"
+                        android:textColor="@color/colorF" />
+                </LinearLayout>
+            </com.itkluo.demo.exam.scrollviewswipe.in.InsideScrollView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="6dp"
+                android:background="@color/colorPrimary"
+                android:padding="5dp"
+                android:text="外部ScrollView"
+                android:textColor="@color/colorF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="6dp"
+                android:background="@color/colorPrimary"
+                android:padding="5dp"
+                android:text="外部ScrollView"
+                android:textColor="@color/colorF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="6dp"
+                android:background="@color/colorPrimary"
+                android:padding="5dp"
+                android:text="外部ScrollView"
+                android:textColor="@color/colorF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="6dp"
+                android:background="@color/colorPrimary"
+                android:padding="5dp"
+                android:text="外部ScrollView"
+                android:textColor="@color/colorF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="6dp"
+                android:background="@color/colorPrimary"
+                android:padding="5dp"
+                android:text="外部ScrollView"
+                android:textColor="@color/colorF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="6dp"
+                android:background="@color/colorPrimary"
+                android:padding="5dp"
+                android:text="外部ScrollView"
+                android:textColor="@color/colorF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="6dp"
+                android:background="@color/colorPrimary"
+                android:padding="5dp"
+                android:text="外部ScrollView"
+                android:textColor="@color/colorF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="6dp"
+                android:background="@color/colorPrimary"
+                android:padding="5dp"
+                android:text="外部ScrollView"
+                android:textColor="@color/colorF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="6dp"
+                android:background="@color/colorPrimary"
+                android:padding="5dp"
+                android:text="外部ScrollView"
+                android:textColor="@color/colorF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="6dp"
+                android:background="@color/colorPrimary"
+                android:padding="5dp"
+                android:text="外部ScrollView"
+                android:textColor="@color/colorF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="6dp"
+                android:background="@color/colorPrimary"
+                android:padding="5dp"
+                android:text="外部ScrollView"
+                android:textColor="@color/colorF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="6dp"
+                android:background="@color/colorPrimary"
+                android:padding="5dp"
+                android:text="外部ScrollView"
+                android:textColor="@color/colorF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="6dp"
+                android:background="@color/colorPrimary"
+                android:padding="5dp"
+                android:text="外部ScrollView"
+                android:textColor="@color/colorF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="6dp"
+                android:background="@color/colorPrimary"
+                android:padding="5dp"
+                android:text="外部ScrollView"
+                android:textColor="@color/colorF" />
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:text="尝试内部拦截"
+        android:textColor="@color/colorF"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>

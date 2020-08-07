@@ -20,6 +20,6 @@
     <color name="half_transparent">#60000000</color>
 
     <color name="green">#23a737</color>
-
+    <color name="colorF">#ffffff</color>
 
 </resources>

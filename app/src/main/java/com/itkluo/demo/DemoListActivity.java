@@ -27,6 +27,8 @@ import com.itkluo.demo.aidl.ClientActivity2;
 import com.itkluo.demo.api.CameraActivity;
 import com.itkluo.demo.apk.GetApkFileInfoActivity;
 import com.itkluo.demo.exam.ProgressActivity;
+import com.itkluo.demo.exam.scrollviewswipe.ScrollViewInterceptMain;
+import com.itkluo.demo.hook.HookActivity;
 import com.itkluo.demo.java.list.SpecInfo;
 import com.itkluo.demo.model.GoodsDetailBean;
 import com.itkluo.demo.sernsor.SensorSampleActivity;
@@ -55,7 +57,8 @@ public class DemoListActivity extends AppCompatActivity {
     private AppCompatActivity mActivity;
     private int itemCount;
 
-    private boolean isJustShow =true;
+    private boolean isJustShow = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +81,8 @@ public class DemoListActivity extends AppCompatActivity {
                 , "CoordinatorLayout嵌套滑动", "CoordinatorLayout嵌套ListView", "可扩展收缩的FlowLayout", "过度绘制布局(设置/辅助功能/开发者选项/，打开调试GPU过度绘制选项）", "内存MAT分析",
                 "伸缩TextView--CollapsibleTextView", "测试 Demo", "改造系统TabLayout", "抢购倒计时", "商品规格选择弹窗", "点击右上角弹出下拉菜单", "RxJava操作符", "使用用TomCat实现软件的版本检测"
                 , "获取路径下未安装的apk信息", "跳转到veb应用商店的搜索页面", "传感器", "震动和提示音", "卡顿检测工具BlockCanary", "截图", "获取手机信息"
-                , "系统信息", "二维码", "NFC", "启动其他App", "MediaPlayer拼接播放数字语音", "SoundPool拼接播放数字语音", "发广播激活百度ota","USB","前后摄像头"
+                , "系统信息", "二维码", "NFC", "启动其他App", "MediaPlayer拼接播放数字语音", "SoundPool拼接播放数字语音", "发广播激活百度ota", "USB", "前后摄像头", "Hook入门"
+                , "ScrollView嵌套拦截"
         };
         itemCount = values.length;
 
@@ -229,7 +233,7 @@ public class DemoListActivity extends AppCompatActivity {
                         mActivity.startActivity(intent2);
                         break;
 
-                        //另外一种优化，支付宝使用SequenceInputStream合并几个音频播放，解决播放的衔接停顿
+                    //另外一种优化，支付宝使用SequenceInputStream合并几个音频播放，解决播放的衔接停顿
                     case 33:
                         //发广播激活百度ota
                         Intent intent = new Intent("action_init_bai_du_ota");
@@ -243,7 +247,15 @@ public class DemoListActivity extends AppCompatActivity {
                     case 35:
                         //前后摄像头
                         startActivity(new Intent(mActivity, CameraActivity.class));
-//                        startActivity(new Intent(mActivity, CameraActivity2.class));
+                        break;
+                    case 36:
+                        //Hook入门
+                        startActivity(new Intent(mActivity, HookActivity.class));
+                        break;
+                    case 37:
+                        //ScrollView嵌套拦截
+                        startActivity(new Intent(mActivity, ScrollViewInterceptMain.class));
+                        break;
                     default:
                         break;
                 }
@@ -318,12 +330,16 @@ public class DemoListActivity extends AppCompatActivity {
      * @param packageName
      */
     public static void search(Context context, String keyword, String packageName) {
-        Intent intent = new Intent();
-        intent.setAction("com.vebos.appstore.search");
-        intent.putExtra("keyword", keyword);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+        try {
+            Intent intent = new Intent();
+            intent.setAction("com.vebos.appstore.search");
+            intent.putExtra("keyword", keyword);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
 //        intent.putExtra("packageName", packageName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private GoodsDetailBean data;

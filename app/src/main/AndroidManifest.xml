@@ -94,7 +94,10 @@
         <activity android:name=".tts2.VoicePlayActivity" />
         <activity android:name=".usb.wdreader.WdSSCardActivity" />
         <activity android:name=".api.CameraActivity" />
-        <activity android:name=".api.CameraActivity2" />
+        <activity android:name=".hook.HookActivity" />
+        <activity android:name=".exam.scrollviewswipe.ScrollViewInterceptMain" />
+        <activity android:name=".exam.scrollviewswipe.in.InsideInterceptActivity" />
+        <activity android:name=".exam.scrollviewswipe.out.OutsideInterceptActivity" />
 
         <service
             android:name="binder.ComputeService"

@@ -13,7 +13,12 @@
     <item name="right2_iv" type="id" />
     <item name="right_tv" type="id" />
     <item name="left_tv" type="id" />
-    <item name="item_divider" type="id"/>
-    <item name="butReturn" type="id"/>
+    <item name="item_divider" type="id" />
+    <item name="butReturn" type="id" />
+
+
+    <!--processBar-->
+    <item name="processBar" type="id" />
+
 
 </resources>
