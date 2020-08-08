@@ -27,6 +27,7 @@ import com.itkluo.demo.aidl.ClientActivity2;
 import com.itkluo.demo.api.CameraActivity;
 import com.itkluo.demo.apk.GetApkFileInfoActivity;
 import com.itkluo.demo.exam.ProgressActivity;
+import com.itkluo.demo.exam.bezier.BezierMain;
 import com.itkluo.demo.exam.scrollviewswipe.ScrollViewInterceptMain;
 import com.itkluo.demo.hook.HookActivity;
 import com.itkluo.demo.java.list.SpecInfo;
@@ -82,7 +83,7 @@ public class DemoListActivity extends AppCompatActivity {
                 "伸缩TextView--CollapsibleTextView", "测试 Demo", "改造系统TabLayout", "抢购倒计时", "商品规格选择弹窗", "点击右上角弹出下拉菜单", "RxJava操作符", "使用用TomCat实现软件的版本检测"
                 , "获取路径下未安装的apk信息", "跳转到veb应用商店的搜索页面", "传感器", "震动和提示音", "卡顿检测工具BlockCanary", "截图", "获取手机信息"
                 , "系统信息", "二维码", "NFC", "启动其他App", "MediaPlayer拼接播放数字语音", "SoundPool拼接播放数字语音", "发广播激活百度ota", "USB", "前后摄像头", "Hook入门"
-                , "ScrollView嵌套拦截"
+                , "ScrollView嵌套拦截", "贝塞尔曲线"
         };
         itemCount = values.length;
 
@@ -255,6 +256,10 @@ public class DemoListActivity extends AppCompatActivity {
                     case 37:
                         //ScrollView嵌套拦截
                         startActivity(new Intent(mActivity, ScrollViewInterceptMain.class));
+                        break;
+                    case 38:
+                        //贝塞尔曲线
+                        startActivity(new Intent(mActivity, BezierMain.class));
                         break;
                     default:
                         break;

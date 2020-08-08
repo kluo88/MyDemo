@@ -21,12 +21,16 @@ public class ProgressActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         thread = new Thread(new ProgressBarRunnable());
         thread.start();
+
+
     }
 
     private class ProgressBarRunnable implements Runnable {
+
         @Override
         public void run() {
             int maxProgress = progressBar.getMax();
+
             int stepProgress = maxProgress / 10;
             while (progressBar.getProgress() < maxProgress) {
                 int curProgress = progressBar.getProgress();

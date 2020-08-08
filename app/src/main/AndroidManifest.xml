@@ -98,6 +98,10 @@
         <activity android:name=".exam.scrollviewswipe.ScrollViewInterceptMain" />
         <activity android:name=".exam.scrollviewswipe.in.InsideInterceptActivity" />
         <activity android:name=".exam.scrollviewswipe.out.OutsideInterceptActivity" />
+        <activity android:name=".exam.bezier.BezierMain" />
+        <activity android:name=".exam.bezier.second.SecondBezierActivity" />
+        <activity android:name=".exam.bezier.third.ThirdBezierActivity" />
+        <activity android:name=".exam.bezier.heart.HeartBezierActivity" />
 
         <service
             android:name="binder.ComputeService"
