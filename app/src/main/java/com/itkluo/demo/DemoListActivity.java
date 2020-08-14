@@ -3,6 +3,8 @@ package com.itkluo.demo;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -85,6 +87,13 @@ public class DemoListActivity extends AppCompatActivity {
                 , "系统信息", "二维码", "NFC", "启动其他App", "MediaPlayer拼接播放数字语音", "SoundPool拼接播放数字语音", "发广播激活百度ota", "USB", "前后摄像头", "Hook入门"
                 , "ScrollView嵌套拦截", "贝塞尔曲线"
         };
+
+        //自定义View https://github.com/18598925736/UiDrawTest  https://www.jianshu.com/p/8ee2acc24755
+        //多渠道 https://github.com/18598925736/GradleStudy1021 https://www.jianshu.com/p/d9b0e19ee1d8
+        //https://www.jianshu.com/p/94933c63ecb2  https://github.com/18598925736/EnjoyGradleHank/commits/master
+        //AOP优雅权限框架 https://github.com/18598925736/GracefulPermissionFramework/tree/dev_aspectJ https://www.jianshu.com/p/f53e519505c9
+        //MVP https://www.jianshu.com/p/47ce942ab3cc https://github.com/18598925736/MvpDemo
+
         itemCount = values.length;
 
         //List<String> list = Arrays.asList(values);
@@ -444,6 +453,21 @@ public class DemoListActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    /**
+     * 多渠道维度获取
+     * 从manifest中读取出metadata
+     */
+    private void getMetaData() {
+        PackageManager pm = getPackageManager();
+        try {
+            ApplicationInfo appInfo = pm.getApplicationInfo(BuildConfig.APPLICATION_ID, PackageManager.GET_META_DATA);
+            Bundle bd = appInfo.metaData;
+            String client = bd.getString("CLIENT");
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 }

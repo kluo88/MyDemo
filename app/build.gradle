@@ -41,42 +41,62 @@ android {
     }
 
     applicationVariants.all { variant ->
+        //方式1 修改输出的APK路径，支持绝对路径
+//        if (variant.buildType.name != "debug") {//防止AS无法安装debug包(apk)
+//            variant.getPackageApplication().outputDirectory = new File(myPackageDir())
+//        }
         variant.outputs.all { output ->
             if (outputFileName != null && outputFileName.endsWith('.apk')) {
                 //variant.flavorName: fla2   variant.buildType.name:debug   variant.name:fla2Debug
                 println "variant.buildType.name:" + "${variant.buildType.name}" + "_variant.name:" + "${variant.name}" + "_variant.flavorName:" + "${variant.flavorName}"
 
                 if (variant.buildType.name == 'release') {
-                    def apkName = "MyDemo" + "_${variant.versionName}" + "_${variant.buildType.name}"
+                    def apkName = "${appNamePrefix()}" + "_${variant.versionName}"
                     if (!variant.flavorName.isEmpty()) {
                         apkName += "_${variant.flavorName}"
                     }
-                    outputFileName = apkName + "_${assembleApkTime()}" + ".apk"
+                    outputFileName =  apkName + "_${variant.buildType.name}" + "_${assembleApkTime()}" + ".apk"
 //                + "_"+applicationId
+                    //方式2 修改输出的APK路径，支持相对路径
+//                    outputFileName =  "../../../${apkName}"
                 } else {
-                    def apkName = "MyDemo" + "_${variant.versionName}" + "_${variant.buildType.name}"
+                    def apkName = "${appNamePrefix()}" + "_${variant.versionName}"
                     if (!variant.flavorName.isEmpty()) {
                         apkName += "_${variant.flavorName}"
                     }
-                    outputFileName = apkName + ".apk"
+                    outputFileName = apkName + "_${variant.buildType.name}" + ".apk"
                 }
 
             }
         }
     }
+//
+//// 或者，使用这种方式，只支持相对路径
+//    applicationVariants.all { variant ->
+//        String time = new Date().format('yyyyMMdd_HHmmss')
+//        String pkgName = "enjoy_${time}_v${defaultConfig.versionName}_${buildType.name}_${flavorName}.apk"
+//        outputs.first().outputFileName = "../../../${pkgName}" // 它不能使用绝对路径，也就是说可以使用项目的相对路径
+//    }
 
-    flavorDimensions "channel"
-    productFlavors {
+
+
+    flavorDimensions "client"  //维度，根据业务场景来， 比如 client（定制不同客户业务）,supplier（供应商）， theme (定制主题业务)
+    productFlavors {//风味
+        //最后打包风味的总数就是 维度x风味
         fla1 {
             applicationId "com.itkluo.demo1"
             versionCode 1
             versionName "1.1.1." + versionCode
+            dimension 'client' //当前风味所处的维度是channel维度
+            manifestPlaceholders = [client: "a"]
         }
 
         fla2 {
+            dimension 'client'
             applicationId "com.itkluo.demo2"
             versionCode 2
             versionName "1.1.2." + versionCode
+            manifestPlaceholders = [client: "b"]
         }
 
     }
@@ -85,6 +105,14 @@ android {
 
 static def assembleApkTime() {
     return new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone("GMT+08:00"))
+}
+
+static def myPackageDir(){
+    return "C:\\Users\\adminstrator\\Desktop\\appPackage"
+}
+
+static def appNamePrefix() {
+    return "MyDemo"
 }
 
 
