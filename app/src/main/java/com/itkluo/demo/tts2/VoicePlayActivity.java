@@ -155,6 +155,9 @@ public class VoicePlayActivity extends AppCompatActivity {
 
     /**
      * 另一个播放方式：Java合并流方式，拼接几段音频为一段音频文件
+     * 和SoundPool的播放速度一样，两个音频间基本没什么延迟。
+     * 但不像SoundPoolUtil是没完成的回调（自己计算每个音频播放时间接着播放下一个）
+     * 当需要变速播放时，这个简单就可以达到
      */
     private void mergeSoundFile() {
         btnStreamPlay.setOnClickListener(new View.OnClickListener() {
