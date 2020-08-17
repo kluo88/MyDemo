@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:hint="请直接输入金额，例如0.01"
+        android:hint="请输入数字 ，例如0.01"
         android:inputType="numberDecimal"
         android:maxLines="1"
         android:paddingLeft="12dp" />
@@ -25,21 +25,30 @@
             android:layout_height="wrap_content"
             android:text="播报/添加" />
 
-        <Button
-            android:id="@+id/bt_del"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="清除列表" />
-
         <Switch
             android:id="@+id/switch_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="中/数" />
+            android:layout_alignParentRight="true"
+            android:text="中文/数字" />
 
     </RelativeLayout>
+
+    <Button
+        android:layout_gravity="right"
+        android:layout_marginTop="40dp"
+        android:id="@+id/btnStreamPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="合并流方式播放 "
+        />
+
+    <Button
+        android:id="@+id/bt_del"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="清除列表" />
 
     <ScrollView
         android:layout_width="match_parent"

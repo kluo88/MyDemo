@@ -93,6 +93,7 @@ public class DemoListActivity extends AppCompatActivity {
         //https://www.jianshu.com/p/94933c63ecb2  https://github.com/18598925736/EnjoyGradleHank/commits/master
         //AOP优雅权限框架 https://github.com/18598925736/GracefulPermissionFramework/tree/dev_aspectJ https://www.jianshu.com/p/f53e519505c9
         //MVP https://www.jianshu.com/p/47ce942ab3cc https://github.com/18598925736/MvpDemo
+        //MVVM https://www.jianshu.com/p/62b4833172fb
 
         itemCount = values.length;
 
@@ -218,6 +219,7 @@ public class DemoListActivity extends AppCompatActivity {
                         startApp(mActivity, "com.veb.facecheck");
                         break;
                     case 31:
+                        //TTS
                         List<Integer> list1 = new ArrayList<>();
                         list1.add(R.raw.mp3_key_code_1);
                         list1.add(R.raw.mp3_unit_bai);
@@ -231,6 +233,7 @@ public class DemoListActivity extends AppCompatActivity {
                         mActivity.startActivity(intent1);
                         break;
                     case 32:
+                        //TTS
                         //SoundPool播放   待参考优化 https://github.com/jiangkang/KTools/tree/master/app/src/main/java/com/jiangkang/ktools/audio
 //                        SoundPoolUtil.getInstance().play(R.raw.mp3_key_code_1
 //                                , R.raw.mp3_unit_bai, R.raw.mp3_key_code_2

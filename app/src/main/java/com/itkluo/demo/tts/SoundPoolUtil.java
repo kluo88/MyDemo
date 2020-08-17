@@ -24,7 +24,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 /**
  * 连续播放音频
  * 通过MediaPlayer获取每个音频时长，再通过SoundPool顺序播放
- *
+ * 优点：SoundPool连续播放音频之间延迟小
+ * 缺陷：无法准确获取播放完成
  * @author luobingyong
  * @date 2020/6/9
  */

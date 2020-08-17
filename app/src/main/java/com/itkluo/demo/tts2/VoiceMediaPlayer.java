@@ -17,6 +17,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 音频播放
+ * 优点：有一个音频播放完成回调，以便播放下一个
+ * 缺陷：MediaPlayer连续播放音频之间有很大延迟
  *
  * @author luobingyong
  * @date 2020/6/17
