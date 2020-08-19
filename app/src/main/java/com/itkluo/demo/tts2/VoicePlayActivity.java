@@ -34,6 +34,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 拼接文字tts功能，总结一下:
+ * 1.MediaPlayer播放下一段音频间会有延迟
+ * 2.后来改SoundPool办法，但没有一段音频播完接口，所以利用MediaPlayer获取播放时长，定时播放下一段音频。
+ * 3.前两天参考支付宝的做法，先把几段音频用流合成，再MediaPlayer播放。
+ * 最后，2，3方式能流畅播放，2缺点是加速播放不好控制
+ * 4.缓存两个MediaPlayer循环交替播放方式，应该可以没试
  * @author luobingyong
  * @date 2020/6/18
  */
@@ -72,6 +78,12 @@ public class VoicePlayActivity extends AppCompatActivity {
     }
 
     void initClick() {
+        if (type == 0) {
+            btPlay.setText("MediaPlayer方式播放");
+        } else {
+            btPlay.setText("SoundPool方式播放");
+        }
+
         btPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

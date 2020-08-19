@@ -23,7 +23,7 @@
             android:id="@+id/bt_play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="播报/添加" />
+            android:text="播报" />
 
         <Switch
             android:id="@+id/switch_view"

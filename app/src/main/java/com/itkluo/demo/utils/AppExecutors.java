@@ -15,6 +15,25 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * <ul>
+ *
+ * <li>核心数 corePoolSize
+ * 线程池中核心线程的数量。
+ * <li>最大容量 maximumPoolSize
+ * 线程池最大允许保留多少线程。
+ * <li>超时时间 keepAliveTime
+ * 线程池中普通线程的存活时间。
+ *
+ * </ul>
+ * <p>
+ * 当调用ThreadPoolExecutor.execute(runnable)的时候，会进行以下判断（这里不考虑延时任务）：
+ * <p>
+ * 1.如果线程池中，运行的线程数少于核心线程数（corePoolSize），那么就新建一个线程，并执行该任务。
+ * 2.如果线程池中，运行的线程数大于等于corePoolSize，将线程添加到待执行队列中，等待执行；
+ * 3.如果2中添加到队列失败，那么就新建一个非核心线程，并在该线程执行该任务；
+ * 4.如果当前线程数已经达到最大线程数（maximumPoolSize），那么拒绝这个任务。
+ * <p>
+ * <p>
  * 线程池管理工具类
  * 参照了 https://blog.csdn.net/weixin_43115440/article/details/90479752
  * 线程池原理 https://blog.csdn.net/u013293125/article/details/93163404
@@ -134,6 +153,11 @@ public class AppExecutors {
         }
     }
 
+    /**
+     * ScheduledThreadPool 定时线程池 核心线程数自定，最大线程数无上限。使用场景：处理延时任务。
+     *
+     * @return
+     */
     private static ScheduledExecutorService scheduledThreadPoolExecutor() {
         return new ScheduledThreadPoolExecutor(16, new MyThreadFactory("scheduled_executor")
                 , new RejectedExecutionHandler() {
@@ -144,6 +168,11 @@ public class AppExecutors {
         });
     }
 
+    /**
+     * 类似SingleThreadExecutor 线程池中的线程数固定为1。使用场景：当多个任务都需要访问同一个资源的时候。
+     *
+     * @return
+     */
     private static ExecutorService diskIoExecutor() {
         return new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<Runnable>(1024),
@@ -156,6 +185,11 @@ public class AppExecutors {
                 });
     }
 
+    /**
+     * 类似FixedThreadPool 核心线程数为n，最大线程数为n。使用场景：明确同时执行任务数量时。
+     *
+     * @return
+     */
     private static ExecutorService networkExecutor() {
         return new ThreadPoolExecutor(3, 6, 1000, TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<Runnable>(6),
