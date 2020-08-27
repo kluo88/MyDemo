@@ -23,8 +23,8 @@
 
 
     <!--usb.host权限，这边没有配置xml文件指定USB设备-->
-    <uses-feature android:name="android.hardware.usb.host" />
-    <uses-permission android:name="android.hardware.usb.host" />
+   <!-- <uses-feature android:name="android.hardware.usb.host" />
+    <uses-permission android:name="android.hardware.usb.host" />-->
 
     <application
         android:name=".MyApplication"
@@ -38,6 +38,9 @@
             <intent-filter>
                 <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
             </intent-filter>
+            <!--            <meta-data-->
+            <!--                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"-->
+            <!--                android:resource="@xml/device_filter"/>-->
         </activity>
         <activity android:name=".PhoneInfoActivity" />
         <activity

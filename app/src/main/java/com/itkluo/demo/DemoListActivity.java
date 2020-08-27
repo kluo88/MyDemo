@@ -275,7 +275,7 @@ public class DemoListActivity extends AppCompatActivity {
                         startActivity(new Intent(mActivity, BezierMain.class));
                         break;
                     case 39:
-                        //Android USB Host与HID设备通信
+                        //Android USB Host与HID设备通信 https://blog.csdn.net/qweadf1/article/details/41646439
                         startActivity(new Intent(mActivity, UsbConnectHidActivity.class));
                         break;
                     default:
