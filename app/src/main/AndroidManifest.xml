@@ -3,10 +3,28 @@
     package="com.itkluo.demo">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.NFC" /> <!-- 要求当前设备必须要有NFC芯片 -->
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
 
-    <uses-permission android:name="android.permission.NFC" />
-    <!-- 要求当前设备必须要有NFC芯片 -->
-    <uses-feature android:name="android.hardware.nfc" android:required="true" />
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 允许读取网络状态 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 允许读取wifi网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 允许 弹出系统级别的AlterDialog -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> <!-- <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" /> -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.DEVICE_POWER" /> <!-- 添加震动权限 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+
+
+    <!--usb.host权限，这边没有配置xml文件指定USB设备-->
+    <uses-feature android:name="android.hardware.usb.host" />
+    <uses-permission android:name="android.hardware.usb.host" />
 
     <application
         android:name=".MyApplication"
@@ -16,10 +34,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PhoneInfoActivity"></activity>
-        <activity android:name=".DemoListActivity"
-            android:launchMode="singleTask"
-            >
+        <activity android:name=".usb.myhid.UsbConnectHidActivity">
+            <intent-filter>
+                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".PhoneInfoActivity" />
+        <activity
+            android:name=".DemoListActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -44,9 +67,7 @@
         <activity android:name=".binder.ClientActivity" />
         <activity android:name=".VpIndicateActivity" />
         <activity android:name=".ViewpagerGridMenuActivity" />
-
         <activity android:name=".aidl.ClientActivity2" />
-
         <activity android:name=".CascadingMenuActivity" />
         <activity android:name=".DownMenuActivity" />
         <activity android:name=".ConstraintLayoutActivity" />
@@ -64,10 +85,8 @@
         <activity android:name=".TestLayoutActivity" />
         <activity android:name=".CollapsibleTextViewActivity" />
         <activity android:name=".exam.ProgressActivity" />
-
         <activity android:name=".MyTabLayoutActivity" />
         <activity android:name=".CountDownTimerViewActivity" />
-
         <activity android:name=".TitleDownMenuActivity" />
         <activity android:name=".RxJavaDemoAct" />
         <activity
@@ -79,7 +98,9 @@
         <activity
             android:name=".NFCCheckActivity"
             android:launchMode="singleTop">
-       <!--     <intent-filter>
+
+            <!--
+                <intent-filter>
                 <action android:name="android.nfc.action.TECH_DISCOVERED" />
             </intent-filter>
 
@@ -89,7 +110,8 @@
             <intent-filter>
                 <action android:name="android.nfc.action.TAG_DISCOVERED" />
                 <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
         <activity android:name=".tts2.VoicePlayActivity" />
         <activity android:name=".usb.wdreader.WdSSCardActivity" />
@@ -109,27 +131,10 @@
         <service
             android:name=".aidl.ComputeService2"
             android:process=":remote" />
-        <service android:name=".system.ScreenShotService" />
-
-        <!-- 预定义一些可变参数，打包的时候会根据配置，有所变化 -->
+        <service android:name=".system.ScreenShotService" /> <!-- 预定义一些可变参数，打包的时候会根据配置，有所变化 -->
         <meta-data
             android:name="CLIENT"
             android:value="${client}" />
-
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- 允许读取网络状态 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 允许读取wifi网络状态 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 允许 弹出系统级别的AlterDialog -->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> <!-- <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" /> -->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.DEVICE_POWER" /> <!-- 添加震动权限 -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-
-    <uses-permission android:name="android.permission.VIBRATE" />
-
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-feature android:name="android.hardware.camera"/>
 
 </manifest>

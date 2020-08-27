@@ -55,7 +55,7 @@ android {
                     if (!variant.flavorName.isEmpty()) {
                         apkName += "_${variant.flavorName}"
                     }
-                    outputFileName =  apkName + "_${variant.buildType.name}" + "_${assembleApkTime()}" + ".apk"
+                    outputFileName = apkName + "_${variant.buildType.name}" + "_${assembleApkTime()}" + ".apk"
 //                + "_"+applicationId
                     //方式2 修改输出的APK路径，支持相对路径
 //                    outputFileName =  "../../../${apkName}"
@@ -77,7 +77,6 @@ android {
 //        String pkgName = "enjoy_${time}_v${defaultConfig.versionName}_${buildType.name}_${flavorName}.apk"
 //        outputs.first().outputFileName = "../../../${pkgName}" // 它不能使用绝对路径，也就是说可以使用项目的相对路径
 //    }
-
 
 
     flavorDimensions "client"  //维度，根据业务场景来， 比如 client（定制不同客户业务）,supplier（供应商）， theme (定制主题业务)
@@ -107,7 +106,7 @@ static def assembleApkTime() {
     return new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone("GMT+08:00"))
 }
 
-static def myPackageDir(){
+static def myPackageDir() {
     return "C:\\Users\\adminstrator\\Desktop\\appPackage"
 }
 
