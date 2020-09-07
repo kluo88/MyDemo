@@ -26,9 +26,6 @@ public class HexStringUtil {
                 stringBuilder.append(0);
             }
             stringBuilder.append(hv);
-            // FIXME: 2020/8/27
-            //测试时,加个空格隔开下好看些
-            stringBuilder.append("  ");
         }
         return stringBuilder.toString();
     }
@@ -43,4 +40,23 @@ public class HexStringUtil {
         }
         return result;
     }
+
+    public static String bytesToHexStringForShow(byte[] src) {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (src == null || src.length <= 0) {
+            return null;
+        }
+        for (int i = 0; i < src.length; i++) {
+            int v = src[i] & 0xFF;
+            String hv = Integer.toHexString(v);
+            if (hv.length() < 2) {
+                stringBuilder.append(0);
+            }
+            stringBuilder.append(hv);
+            //显示时,加个空格隔开下好看些
+//            stringBuilder.append("  ");
+        }
+        return stringBuilder.toString();
+    }
+
 }

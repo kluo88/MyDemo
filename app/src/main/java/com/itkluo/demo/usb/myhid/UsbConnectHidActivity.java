@@ -42,17 +42,14 @@ public class UsbConnectHidActivity extends AppCompatActivity {
     private UsbDevice mUsbDevice;
     private UsbInterface mUsbInterface;
     private UsbDeviceConnection mDeviceConnection;
-    private final int mVendorId = 739;
-    private final int mProductId = 1794;
+    private final int mVendorId = 21832;
+    private final int mProductId = 26214;
     private UsbEndpoint mUsbEndpointOut;
     private UsbEndpoint mUsbEndpointIn;
     private byte[] mSendBytes;
     private boolean justEnumerate;
     private int mInMaxPacketSize;
     private int mOutMaxPacketSize;
-
-    public UsbConnectHidActivity() {
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,27 +102,34 @@ public class UsbConnectHidActivity extends AppCompatActivity {
         }
         HashMap<String, UsbDevice> deviceList = mUsbManager.getDeviceList();
         if (!deviceList.isEmpty()) { // deviceList不为空
-            StringBuffer sb = new StringBuffer();
+            UsbDevice findDevice = null;
             for (UsbDevice device : deviceList.values()) {
-                sb.append(device.toString());
-                sb.append("\n");
-                tv_info.append(sb);
+//                tv_info.append(device.getDeviceName() + "\nVendorId: :" + device.getVendorId()
+//                        + "\nProductId:" + device.getProductId()+"\n");
                 // 输出设备信息
                 Log.d(TAG, "DeviceInfo: " + device.getVendorId() + " , "
                         + device.getProductId());
 
                 // 枚举到设备
                 if (device.getVendorId() == mVendorId && device.getProductId() == mProductId) {
-                    mUsbDevice = device;
-                    Toast.makeText(this, "枚举设备成功", Toast.LENGTH_SHORT).show();
-                    Log.d(TAG, "枚举设备成功");
-                    findInterface();
+                    findDevice = device;
                     break;
                 } else {
-//                    Toast.makeText(this, "Not Found VID and PID", Toast.LENGTH_SHORT).show();
-                    Log.d(TAG, "Not Found VID and PID");
+//
                 }
             }
+
+            if (findDevice != null) {
+                mUsbDevice = findDevice;
+                Toast.makeText(this, "枚举设备成功", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "枚举设备成功");
+                findInterface();
+            } else {
+//                Toast.makeText(this, "Not Found VID and PID", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "Not Found VID and PID");
+            }
+
+
         } else {
             new AlertDialog.Builder(this).setTitle("未枚举到设备！")
                     .setMessage("请先连接设备")
@@ -150,26 +154,21 @@ public class UsbConnectHidActivity extends AppCompatActivity {
             Toast.makeText(this, "没找到我的设备接口", Toast.LENGTH_SHORT).show();
             return;
         }
-        // 获取设备接口，一般都是一个接口，你可以打印getInterfaceCount()方法查看接
-        // 口的个数，在这个接口上有两个端点，OUT 和 IN
-        for (int i = 0; ; ) {
+
+        for (int i = 0; ; i++) {
             UsbInterface intf = mUsbDevice.getInterface(i);
 
             // 根据手上的设备做一些判断，其实这些信息都可以在枚举到设备时打印出来
 //            if (intf.getInterfaceClass() == 3
 //                    && intf.getInterfaceSubclass() == 0
-//                    && intf.getInterfaceProtocol() == 0) {//HID设备的相关信息
+//                    && intf.getInterfaceProtocol() == 0) {
             mUsbInterface = intf;
             Log.d(TAG, "找到我的设备接口");
-
-//            }
-            break;
-        }
-
-        if (mUsbInterface != null) {
             if (!justEnumerate) {
                 openDevice();
             }
+//            }
+            break;
         }
 
 
@@ -208,7 +207,7 @@ public class UsbConnectHidActivity extends AppCompatActivity {
 
             Log.d(TAG, "打开设备成功");
             Toast.makeText(this, "打开设备成功", Toast.LENGTH_SHORT).show();
-//                assignEndpoint();
+            assignEndpoint();
         } else {
             conn.close();
         }
@@ -216,14 +215,8 @@ public class UsbConnectHidActivity extends AppCompatActivity {
 
     /**
      * 拿到端点，用bulkTransfer进行数据发收
-     * 比如自定义设备发送/接收模式为：
-     * 发送命令out（发送预发送命令+发送命令+接收发送成功信息）；接收数据in（发送预接收命令+接收数据+接收数据成功信息）。
      */
     private void assignEndpoint() {
-        if (mDeviceConnection == null || mUsbInterface == null) {
-            Toast.makeText(this, "先打开设备", Toast.LENGTH_SHORT).show();
-            return;
-        }
         if (mUsbInterface.getEndpoint(1) != null) {
             mUsbEndpointOut = mUsbInterface.getEndpoint(1);
         }
@@ -243,20 +236,124 @@ public class UsbConnectHidActivity extends AppCompatActivity {
         }
         mInMaxPacketSize = mUsbEndpointIn.getMaxPacketSize();
         mOutMaxPacketSize = mUsbEndpointOut.getMaxPacketSize();
+    }
 
-        int re = mDeviceConnection.bulkTransfer(mUsbEndpointOut, mSendBytes, mSendBytes.length, 3000);
-        byte[] reByte = new byte[64];
+    /**
+     * 枚举设备
+     *
+     * @param view
+     */
+    public void enumerateDevice(View view) {
+        tv_info.setText("");
+        mUsbDevice = null;
+        mUsbInterface = null;
+        mDeviceConnection = null;
+        justEnumerate = true;
+        enumerateDevice();
+    }
 
+    /**
+     * 连接设备
+     *
+     * @param view
+     */
+    public void openDevice(View view) {
+        openDevice();
+    }
+
+    /**
+     * 枚举并连接设备
+     *
+     * @param view
+     */
+    public void enumerateAndOpenDevice(View view) {
+        tv_info.setText("");
+        mUsbDevice = null;
+        mUsbInterface = null;
+        mDeviceConnection = null;
+        justEnumerate = false;
+        enumerateDevice();
+    }
+
+    /**
+     * ***************************************** 发送命令  **************************************
+     */
+    public void connect_dev(View view) {
+        if (!isConnectValid()) {
+            return;
+        }
+        Log.d(TAG, "connect_dev");
+        String cmdStr = "5302a634040000000700000000000000fffefdfc000000000000000000000000";
+        transport(cmdStr);
+    }
+
+    public void disconnect_dev(View view) {
+        if (!isConnectValid()) {
+            return;
+        }
+        Log.d(TAG, "disconnect_dev");
+        String cmdStr = "5302a634040000000700000000000000fcfdfeff000000000000000000000000";
+        transport(cmdStr);
+    }
+
+    public void get_session_key(View view) {
+        if (!isConnectValid()) {
+            return;
+        }
+        Log.d(TAG, "disconnect_dev");
+        String cmdStr = "5302a6348600000006000000000000000047474b80f83670762e1bececa26fc3064682173ba60251291c27d85728a1d8859f23bc2b9073af1f3a21eca2caa222605f7dbb0e79e6bfa11bc43e2b785a7d0c72e9fa3b9a3f2c5143a448e85743e38e68025ca8855e69e624ab89681489a16e7c5b4ae820a7960fb77d32fcf441192eb53afb6d27d969dea48f53c085756ffaa7cf692580";
+        transport(cmdStr);
+    }
+
+    public void readData(View view) {
+        if (!isConnectValid()) {
+            return;
+        }
+        Log.d(TAG, "readData");
+        byte[] reByte = new byte[1024];
         int re2 = mDeviceConnection.bulkTransfer(mUsbEndpointIn, reByte, reByte.length, 3000);
-        Log.i("reByte", "re" + re + "re2" + re2 + "\n" + HexStringUtil.bytesToHexString(reByte));
-
-        tv_info.append("\n\n发送数据：" + HexStringUtil.bytesToHexString(mSendBytes));
-        tv_info.append("\n返回码：" + "re=" + re);
-        tv_info.append("\n");
-        tv_info.append("\n接收的数据：" + HexStringUtil.bytesToHexString(reByte));
+        Log.i("reByte", "re2" + re2 + "\n" + HexStringUtil.bytesToHexStringForShow(reByte));
+        Toast.makeText(UsbConnectHidActivity.this, "接收" + re2, Toast.LENGTH_SHORT).show();
+        tv_info.setText("");
+        tv_info.append("\n接收的数据：" + HexStringUtil.bytesToHexStringForShow(reByte));
         tv_info.append("\n返回码：" + "re2=" + re2);
     }
 
+    private void transport(String cmdStr) {
+        byte[] comm;
+        byte[] resp = new byte[256];
+        comm = HexStringUtil.hexStringToByte(cmdStr);
+//        int wCmdLen = comm.length / 2;//写入命令的长度
+//        byte[] ucOutBuf = new byte[65];//分段写入的数据
+        int re = mDeviceConnection.bulkTransfer(mUsbEndpointOut, comm, comm.length, 3000);
+        if (re < 0) {
+            return;
+        }
+
+        byte[] reByte = new byte[mInMaxPacketSize];//1024
+        int re2 = mDeviceConnection.bulkTransfer(mUsbEndpointIn, reByte, reByte.length, 3000);
+        Log.i("reByte", "re" + re + "re2" + re2 + "\n" + HexStringUtil.bytesToHexStringForShow(reByte));
+        Toast.makeText(UsbConnectHidActivity.this, "接收" + re2 +" "+ mInMaxPacketSize, Toast.LENGTH_SHORT).show();
+
+        tv_info.setText("");
+        tv_info.append("\n发送数据：" + HexStringUtil.bytesToHexStringForShow(comm));
+        tv_info.append("\n返回码：" + "re=" + re);
+        tv_info.append("\n");
+        tv_info.append("\n接收的数据：" + HexStringUtil.bytesToHexStringForShow(reByte));
+        tv_info.append("\n返回码：" + "re2=" + re2);
+    }
+
+    private boolean isConnectValid() {
+        if (mUsbEndpointOut == null || mUsbEndpointIn == null) {
+            if (mDeviceConnection != null) {
+                mDeviceConnection.close();
+            }
+            Log.d(TAG, "get endpoint failed");
+            Toast.makeText(this, "获取端口失败", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
 
     /**
      * 发送包操作，发送OUT + 发送COM + 接收IN
@@ -293,47 +390,6 @@ public class UsbConnectHidActivity extends AppCompatActivity {
         if (ret != 13) {
             return;
         }
-    }
-
-    /**
-     * 枚举设备
-     *
-     * @param view
-     */
-    public void enumerateDevice(View view) {
-        tv_info.setText("");
-        mUsbDevice = null;
-        mUsbInterface = null;
-        mDeviceConnection = null;
-        justEnumerate = true;
-        enumerateDevice();
-    }
-
-    /**
-     * 连接设备
-     *
-     * @param view
-     */
-    public void openDevice(View view) {
-        openDevice();
-    }
-
-    public void transfer(View view) {
-        assignEndpoint();
-    }
-
-    /**
-     * 枚举并连接设备
-     *
-     * @param view
-     */
-    public void enumerateAndOpenDevice(View view) {
-        tv_info.setText("");
-        mUsbDevice = null;
-        mUsbInterface = null;
-        mDeviceConnection = null;
-        justEnumerate = false;
-        enumerateDevice();
     }
 
     private static class Commands {

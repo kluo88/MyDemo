@@ -55,6 +55,9 @@ import java.util.List;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
+/**
+ * Shut up and show me the code
+ */
 public class DemoListActivity extends AppCompatActivity {
     private static final String TAG = "DemoListActivity";
     private ViewGroup mainLayout;
@@ -95,6 +98,11 @@ public class DemoListActivity extends AppCompatActivity {
         //AOP优雅权限框架 https://github.com/18598925736/GracefulPermissionFramework/tree/dev_aspectJ https://www.jianshu.com/p/f53e519505c9
         //MVP https://www.jianshu.com/p/47ce942ab3cc https://github.com/18598925736/MvpDemo
         //MVVM https://www.jianshu.com/p/62b4833172fb
+
+        //串口库和USB库
+        //https://github.com/WuSG2016/McLibrary
+        //https://github.com/Geek8ug/Android-SerialPort
+        //https://juejin.im/post/6844903870368317447
 
         itemCount = values.length;
 
@@ -276,6 +284,7 @@ public class DemoListActivity extends AppCompatActivity {
                         break;
                     case 39:
                         //Android USB Host与HID设备通信 https://blog.csdn.net/qweadf1/article/details/41646439
+                        //https://www.jianshu.com/p/e2e57cddac6a
                         startActivity(new Intent(mActivity, UsbConnectHidActivity.class));
                         break;
                     default:
