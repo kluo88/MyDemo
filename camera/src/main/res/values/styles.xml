@@ -11,6 +11,12 @@
     <!-- Camera2ViewLayout -->
     <declare-styleable name="Camera2ViewLayout">
         <attr name="cameraCoverBackgroundColor" format="color" />
+        <attr name="showToast" format="boolean" />
+        <attr name="showLog" format="boolean" />
+        <attr name="cameraFacing" format="enum">
+            <enum name="front" value="0" />
+            <enum name="back" value="1" />
+        </attr>
     </declare-styleable>
 
 </resources>

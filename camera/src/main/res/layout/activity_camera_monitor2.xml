@@ -9,7 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="400dp"
         app:cameraCoverBackgroundColor="#60000000"
-        />
+        app:cameraFacing="front"
+        app:showLog="true"
+        app:showToast="false" />
 
     <RelativeLayout
         android:id="@+id/rlContent"

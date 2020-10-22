@@ -75,7 +75,8 @@ public class Camera2Helper {
     private Size mPreviewSize = new Size(PREVIEW_WIDTH, PREVIEW_HEIGHT);                      //预览大小
     private Size mSavePicSize = new Size(SAVE_WIDTH, SAVE_HEIGHT);                            //保存图片大小
 
-    private boolean showToast = true;   //是否弹 toast
+    private boolean showToast = false;   //是否弹 toast
+    private boolean showLog = true;   //是否打印 log
 
 
     public Camera2Helper(Activity activity, TextureView textureView) {
@@ -502,6 +503,9 @@ public class Camera2Helper {
     }
 
     private void log(String msg) {
+        if (!showLog) {
+            return;
+        }
         Log.e(TAG, msg);
     }
 
@@ -509,8 +513,13 @@ public class Camera2Helper {
         this.showToast = showToast;
     }
 
+    public void setShowLog(boolean showLog) {
+        this.showLog = showLog;
+    }
+
     /**
      * 设置使用的摄像头 0前置 1后置
+     *
      * @param cameraFacing
      */
     public void setDefaultCameraFacing(int cameraFacing) {

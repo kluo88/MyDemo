@@ -13,7 +13,7 @@ import com.itkluo.camera.R;
 import com.itkluo.camera.camera2.Camera2Helper;
 
 /**
- * Camera2 相机 View
+ * 自定义 Camera2 相机使用控件
  *
  * @author luobingyong
  * @date 2020/10/22
@@ -23,7 +23,6 @@ public class Camera2ViewLayout extends RelativeLayout {
     private FrameLayout mCameraCover;
     private Camera2Helper mCamera2Helper;
     private int mCameraCoverColor;
-
 
     public Camera2ViewLayout(Context context) {
         this(context, null);
@@ -40,22 +39,35 @@ public class Camera2ViewLayout extends RelativeLayout {
         mCameraCover = findViewById(R.id.cameraCover);
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.Camera2ViewLayout);
         int n = array.getIndexCount();
+        if (context instanceof Activity) {
+            Activity mActivity = ((Activity) context);
+            mCamera2Helper = new Camera2Helper(mActivity, mCameraView);
+
+        }
         for (int i = 0; i < n; i++) {
             int attr = array.getIndex(i);
             if (attr == R.styleable.Camera2ViewLayout_cameraCoverBackgroundColor) {
                 mCameraCoverColor = array.getColor(attr, 0);
+            } else if (attr == R.styleable.Camera2ViewLayout_showToast) {
+                if (mCamera2Helper != null) {
+                    mCamera2Helper.setShowToast(array.getBoolean(attr, false));
+                }
+            } else if (attr == R.styleable.Camera2ViewLayout_showLog) {
+                if (mCamera2Helper != null) {
+                    mCamera2Helper.setShowLog(array.getBoolean(attr, false));
+                }
+            }  else if (attr == R.styleable.Camera2ViewLayout_cameraFacing) {
+                int cameraFacing = array.getInt(attr, 0);
+                if (mCamera2Helper != null) {
+                    mCamera2Helper.setDefaultCameraFacing(cameraFacing);
+                }
             }
         } //释放资源
         array.recycle();
         if (mCameraCoverColor != 0) {
             mCameraCover.setBackgroundColor(mCameraCoverColor);
         }
-        if (context instanceof Activity) {
-            Activity mActivity = ((Activity) context);
-            mCamera2Helper = new Camera2Helper(mActivity, mCameraView);
-            mCamera2Helper.setDefaultCameraFacing(0);
-            mCamera2Helper.setShowToast(true);
-        }
+
     }
 
     @Override
