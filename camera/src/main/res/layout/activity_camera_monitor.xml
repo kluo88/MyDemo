@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.itkluo.camera.view.CameraTextureView
+        android:id="@+id/cameraView"
+        android:layout_width="match_parent"
+        android:layout_height="360dp" />
+
+    <FrameLayout
+        android:id="@+id/cameraCover"
+        android:layout_width="match_parent"
+        android:layout_height="360dp"
+        android:background="#60000000" />
+
+    <RelativeLayout
+        android:id="@+id/rlContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="180dp"
+            android:layout_marginEnd="40dp"
+            android:hint="输入密码" />
+
+        <ImageButton
+            android:id="@+id/btnTakePic"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_below="@id/etPassword"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/shape_white_ring"
+            android:src="@drawable/select_circle"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -3,7 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="white">#ffffff</color>
     <color name="custom_black_color">#323232</color>
     <color name="c_303030">#303030</color>
     <color name="c_f0f0f0">#f0f0f0</color>
@@ -15,9 +14,6 @@
     <color name="cascading_menu_choose_item_selected_bg">@color/c_f0f0f0</color>
     <color name="cascading_menu_choose_item_text_color">@color/c_303030</color>
     <color name="custom_gray_color">#999999</color>
-
-    <color name="transparent">#00000000</color>
-    <color name="half_transparent">#60000000</color>
 
     <color name="green">#23a737</color>
     <color name="colorF">#ffffff</color>

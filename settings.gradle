@@ -1,1 +1,3 @@
 include ':app'
+include ':camera'
+include ':lib_common'

@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    compileSdkVersion rootProject.ext.compileVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "com.itkluo.demo"
-        minSdkVersion 19
-        targetSdkVersion 28
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -142,4 +142,6 @@ dependencies {
     // 卡顿监控的另一个方案 https://blog.csdn.net/u012874222/article/details/79400154
     // 卡顿监控的另一个方案 https://blog.csdn.net/u012874222/article/details/79417549
     // 卡顿监控的另一个方案 https://github.com/pengweiqiang/ANRWatch
+
+    implementation project(':lib_common')
 }
