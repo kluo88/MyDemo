@@ -14,6 +14,7 @@ import com.itkluo.camera.view.CameraTextureView;
 
 /**
  * 布局中嵌入摄像头预览View
+ * 使用 自定义控件 {@link CameraTextureView}
  *
  * @author luobingyong
  * @date 2020/10/22
@@ -67,7 +68,7 @@ public class CameraMonitorActivity extends AppCompatActivity {
 //        });
 //    }
 
-}
+    }
 
     @Override
     protected void onDestroy() {

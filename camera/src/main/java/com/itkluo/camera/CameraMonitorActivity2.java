@@ -14,7 +14,7 @@ import com.itkluo.camera.view.Camera2ViewLayout;
 
 /**
  * 布局中嵌入摄像头预览View
- *
+ * 使用 自定义控件 {@link Camera2ViewLayout}
  * @author luobingyong
  * @date 2020/10/22
  */

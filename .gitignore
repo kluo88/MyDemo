@@ -1,6 +1,7 @@
 *.iml
 .gradle
 /local.properties
+/.idea
 .DS_Store
 /build
 /captures
@@ -9,3 +10,4 @@
 # 参考 https://blog.csdn.net/beita08/article/details/80118961 设置Git忽略文件及.idea文件夹
 /.idea
 /.idea/
+

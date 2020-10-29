@@ -78,6 +78,7 @@ public class Camera2Helper {
     private boolean showToast = false;   //是否弹 toast
     private boolean showLog = true;   //是否打印 log
 
+    private CallBack mCallBack;//自定义的回调
 
     public Camera2Helper(Activity activity, TextureView textureView) {
         mActivity = activity;
@@ -207,6 +208,10 @@ public class Camera2Helper {
             byte[] data = new byte[byteBuffer.remaining()];
             byteBuffer.get(data);
             image.close();
+
+            if (mCallBack != null) {
+                mCallBack.onTakePic(data);
+            }
 
             BitmapUtils.saveCameraPic(data, mCameraSensorOrientation == 270, new BitmapUtils.SavePicCallBack() {
                 @Override
@@ -528,5 +533,17 @@ public class Camera2Helper {
         } else {
             mCameraFacing = CameraCharacteristics.LENS_FACING_BACK;
         }
+    }
+
+    void addCallBack(CallBack callBack) {
+        this.mCallBack = callBack;
+    }
+
+    interface CallBack {
+        void onPreviewFrame(byte[] data);
+
+        void onTakePic(byte[] data);
+
+//        void onFaceDetect(ArrayList<RectF> faces);
     }
 }
