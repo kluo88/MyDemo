@@ -1,4 +1,4 @@
- package com.itkluo.demo;
+package com.itkluo.demo;
 
 import android.Manifest;
 import android.app.ActivityManager;
@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.StatFs;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.CellLocation;
@@ -27,11 +28,14 @@ import android.telephony.SignalStrength;
 import android.telephony.TelephonyManager;
 import android.telephony.cdma.CdmaCellLocation;
 import android.telephony.gsm.GsmCellLocation;
+import android.text.TextUtils;
 import android.text.format.Formatter;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -51,12 +55,54 @@ import java.util.Enumeration;
 import java.util.List;
 
 public class PhoneInfoActivity extends AppCompatActivity {
+    private TextView content;
+    private TextView content2;
+    private TextView mTextView;
+    private static final int REQUEST_READ_PHONE_STATE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_info);
-        Log.d("wxl", getSystemMemory());
+        content = findViewById(R.id.content);
+        content2 = findViewById(R.id.content2);
+        content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+        mTextView = (TextView) findViewById(R.id.text);
+
+        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
+
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_READ_PHONE_STATE);
+        } else {
+            getInfo();
+        }
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_READ_PHONE_STATE:
+                if ((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    getInfo();
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    private void getInfo() {
+        String systemInfoStr = getSimCardInfo();
+        systemInfoStr += "-------------------------------------\r\n";
+        systemInfoStr += "";
+        mTextView.setText(systemInfoStr);
     }
 
     // 获取Android手机中SD卡存储信息 获取剩余空间
@@ -564,7 +610,12 @@ public class PhoneInfoActivity extends AppCompatActivity {
          * 如果是GSM网络，返回IMEI；如果是CDMA网络，返回MEID Return null if device ID is not
          * available.
          */
-        String Imei = tm.getDeviceId();// String
+        String Imei = null;// String
+        try {
+            Imei = tm.getDeviceId();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         /*
          * 返回移动终端的软件版本，例如：GSM手机的IMEI/SV码。 设备的软件版本号： 例如：the IMEI/SV(software
          * version) for GSM phones. Return null if the software version is not
@@ -655,12 +706,14 @@ public class PhoneInfoActivity extends AppCompatActivity {
         String IMSI = tm.getSubscriberId(); // 国际移动用户识别码
         // IMSI号前面3位460是国家，紧接着后面2位00 02是中国移动，01是中国联通，03是中国电信。
         System.out.println(IMSI);
-        if (IMSI.startsWith("46000") || IMSI.startsWith("46002")) {
-            ProvidersName = "中国移动";
-        } else if (IMSI.startsWith("46001")) {
-            ProvidersName = "中国联通";
-        } else if (IMSI.startsWith("46003")) {
-            ProvidersName = "中国电信";
+        if (!TextUtils.isEmpty(IMSI)) {
+            if (IMSI.startsWith("46000") || IMSI.startsWith("46002")) {
+                ProvidersName = "中国移动";
+            } else if (IMSI.startsWith("46001")) {
+                ProvidersName = "中国联通";
+            } else if (IMSI.startsWith("46003")) {
+                ProvidersName = "中国电信";
+            }
         }
         // 返回当前移动终端附近移动终端的信息
         /*
@@ -668,20 +721,23 @@ public class PhoneInfoActivity extends AppCompatActivity {
          * 需要权限：android.Manifest.permission#ACCESS_COARSE_UPDATES
          */
         List<NeighboringCellInfo> infos = tm.getNeighboringCellInfo();
-        for (NeighboringCellInfo info : infos) {
-            // 获取邻居小区号
-            int cid = info.getCid();
-            // 获取邻居小区LAC，LAC:
-            // 位置区域码。为了确定移动台的位置，每个GSM/PLMN的覆盖区都被划分成许多位置区，LAC则用于标识不同的位置区。
-            info.getLac();
-            info.getNetworkType();
-            info.getPsc();
-            // 获取邻居小区信号强度
-            info.getRssi();
+        if (infos != null) {
+            for (NeighboringCellInfo info : infos) {
+                // 获取邻居小区号
+                int cid = info.getCid();
+                // 获取邻居小区LAC，LAC:
+                // 位置区域码。为了确定移动台的位置，每个GSM/PLMN的覆盖区都被划分成许多位置区，LAC则用于标识不同的位置区。
+                info.getLac();
+                info.getNetworkType();
+                info.getPsc();
+                // 获取邻居小区信号强度
+                info.getRssi();
+            }
         }
         return "手机号码:" + phoneNum + "\n" + "服务商：" + ProvidersName + "\n"
                 + "IMEI：" + Imei;
     }
+
     // 显示信息对话框
     public void showDialog(String title, String info) {
         AlertDialog dialog = new AlertDialog.Builder(this)

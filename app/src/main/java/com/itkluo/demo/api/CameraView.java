@@ -21,6 +21,9 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void init(Camera camera) {
+        if (null != this.surfaceHolder) {
+            this.surfaceHolder.removeCallback(this);
+        }
         surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);
         mCamera = camera;

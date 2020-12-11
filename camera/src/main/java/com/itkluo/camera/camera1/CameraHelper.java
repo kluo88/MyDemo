@@ -35,6 +35,7 @@ public class CameraHelper implements Camera.PreviewCallback {
 
     private int picWidth = 2160;        //保存图片的宽
     private int picHeight = 3840;       //保存图片的高
+    private SurfaceHolder.Callback mSurfaceCallback;
 
     public CameraHelper(Activity activity, SurfaceView surfaceView) {
         mActivity = activity;
@@ -66,7 +67,10 @@ public class CameraHelper implements Camera.PreviewCallback {
     }
 
     private void init() {
-        mSurfaceHolder.addCallback(new SurfaceHolder.Callback() {
+        if (null != mSurfaceHolder && null != mSurfaceCallback) {
+            mSurfaceHolder.removeCallback(mSurfaceCallback);
+        }
+        mSurfaceCallback = new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder) {
                 if (mCamera == null) {
@@ -84,7 +88,8 @@ public class CameraHelper implements Camera.PreviewCallback {
             public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder) {
                 releaseCamera();
             }
-        });
+        };
+        mSurfaceHolder.addCallback(mSurfaceCallback);
     }
 
     //打开相机
