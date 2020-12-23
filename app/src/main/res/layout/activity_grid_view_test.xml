@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="test"
+        />
+
+    <GridView
+        android:id="@+id/gridview1"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:numColumns="3"
+        android:gravity="center"
+        android:verticalSpacing="0dp"
+        android:stretchMode="columnWidth"
+        android:columnWidth="80dp"
+        android:horizontalSpacing="8dp"
+        />
+
+   <!-- android:stretchMode="none"
+   none 不拉伸，columnWidth为设置值，horizontalSpacing为设置值  （columnWidthDp:80,widthSpaceDp:8）
+   spacingWidth 列表的左右不留空，columnWidth为设置值，horizontalSpacing为平分剩余空间   （columnWidthDp:80,widthSpaceDp:60）
+   spacingWidthUniform 列表的左右不留空，columnWidth为设置值，前面的间距先按60分   （columnWidthDp:80,widthSpaceDp:34）
+   columnWidth 列表的左右不留空，columnWidth为平分值，horizontalSpacing为设置值   （columnWidthDp:115,widthSpaceDp:8）
+   -->
+
+</LinearLayout>

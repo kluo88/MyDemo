@@ -30,7 +30,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".exam.touchEvent.sample2.ViewPagerListViewTouchActivity"></activity>
+        <activity android:name=".GridViewTestActivity"></activity>
+        <activity android:name=".exam.touchEvent.sample2.ViewPagerListViewTouchActivity" />
         <activity android:name=".usb.myhid.UsbConnectHidActivity">
 
             <!--

@@ -17,4 +17,14 @@
         <item>is_online</item>
     </string-array>
 
+    <string name="c1">F00</string>
+    <string name="c2">0F0</string>
+    <string name="c3">00F</string>
+    <string name="c4">FF0</string>
+    <string name="c5">F0F</string>
+    <string name="c6">0FF</string>
+    <string name="c7">07F</string>
+    <string name="c8">F07</string>
+    <string name="c9">70F</string>
+
 </resources>

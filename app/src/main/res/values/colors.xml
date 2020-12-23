@@ -18,4 +18,15 @@
     <color name="green">#23a737</color>
     <color name="colorF">#ffffff</color>
 
+
+    <color name="c1">#F00</color>
+    <color name="c2">#0F0</color>
+    <color name="c3">#00F</color>
+    <color name="c4">#FF0</color>
+    <color name="c5">#F0F</color>
+    <color name="c6">#0FF</color>
+    <color name="c7">#07F</color>
+    <color name="c8">#F07</color>
+    <color name="c9">#70F</color>
+
 </resources>

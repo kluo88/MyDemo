@@ -90,7 +90,7 @@ public class DemoListActivity extends AppCompatActivity {
                 "伸缩TextView--CollapsibleTextView", "测试 Demo", "改造系统TabLayout", "抢购倒计时", "商品规格选择弹窗", "点击右上角弹出下拉菜单", "RxJava操作符", "使用用TomCat实现软件的版本检测"
                 , "获取路径下未安装的apk信息", "跳转到veb应用商店的搜索页面", "传感器", "震动和提示音", "卡顿检测工具BlockCanary", "截图", "获取手机信息"
                 , "系统信息", "二维码", "NFC", "启动其他App", "MediaPlayer拼接播放数字语音", "SoundPool拼接播放数字语音", "发广播激活百度ota", "USB", "前后摄像头", "Hook入门"
-                , "ScrollView嵌套拦截", "贝塞尔曲线", "Android USB Host与HID设备通信","ViewPager嵌套ListView滑动冲突测试"
+                , "ScrollView嵌套拦截", "贝塞尔曲线", "Android USB Host与HID设备通信","ViewPager嵌套ListView滑动冲突测试","GridViewTestActivity"
         };
 
         //自定义View https://github.com/18598925736/UiDrawTest  https://www.jianshu.com/p/8ee2acc24755
@@ -130,7 +130,7 @@ public class DemoListActivity extends AppCompatActivity {
                     case 2:
                         DemoListActivity.this.startActivity(new Intent(DemoListActivity.this, VpIndicateActivity.class));
                         break;
-                    case 3:
+                    case 3://ViewPage列表中gridview
                         DemoListActivity.this.startActivity(new Intent(DemoListActivity.this, ViewpagerGridMenuActivity.class));
                         break;
                     case 4:
@@ -290,6 +290,9 @@ public class DemoListActivity extends AppCompatActivity {
                         break;
                     case 40://ViewPager嵌套ListView滑动冲突测试
                         DemoListActivity.this.startActivity(new Intent(DemoListActivity.this, ViewPagerListViewTouchActivity.class));
+                        break;
+                    case 41://GridViewTestActivity
+                        DemoListActivity.this.startActivity(new Intent(DemoListActivity.this, GridViewTestActivity.class));
                         break;
                     default:
                         break;
