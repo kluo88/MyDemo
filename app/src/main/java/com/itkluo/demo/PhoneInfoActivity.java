@@ -38,6 +38,8 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.itkluo.demo.utils.DeviceIdUtil;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -81,6 +83,7 @@ public class PhoneInfoActivity extends AppCompatActivity {
         } else {
             getInfo();
         }
+
     }
 
 
@@ -753,5 +756,15 @@ public class PhoneInfoActivity extends AppCompatActivity {
                             }
                         }).create();
         dialog.show();
+    }
+
+    public void getDeviceId(View view) {
+        //唯一标识ID，兼容Android版本
+        Toast.makeText(this, DeviceIdUtil.getDeviceId(this), Toast.LENGTH_SHORT).show();
+        Log.d("PhoneInfoActivity", "Android " + android.os.Build.VERSION.RELEASE);
+        Log.d("PhoneInfoActivity", "deviceId--> " + DeviceIdUtil.getDeviceId(this));
+
+        mTextView.setText("Android " + android.os.Build.VERSION.RELEASE +"\n"
+                +"deviceId--> " + DeviceIdUtil.getDeviceId(this));
     }
 }

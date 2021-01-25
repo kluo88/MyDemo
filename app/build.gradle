@@ -143,5 +143,5 @@ dependencies {
     // 卡顿监控的另一个方案 https://blog.csdn.net/u012874222/article/details/79417549
     // 卡顿监控的另一个方案 https://github.com/pengweiqiang/ANRWatch
 
-    implementation project(':lib_common')
+    implementation project(':common')
 }

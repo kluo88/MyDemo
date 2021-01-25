@@ -6,11 +6,9 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -39,13 +37,16 @@ import com.itkluo.demo.sernsor.SensorSampleActivity;
 import com.itkluo.demo.system.ShotUtils;
 import com.itkluo.demo.tomcat.IndexActivity;
 import com.itkluo.demo.tts2.VoicePlayActivity;
+import com.itkluo.demo.usb.myhid.HexStringUtil;
 import com.itkluo.demo.usb.myhid.UsbConnectHidActivity;
 import com.itkluo.demo.usb.wdreader.WdSSCardActivity;
+import com.itkluo.demo.utils.CommonUtil;
 import com.itkluo.demo.utils.VibrateAndToneUtil;
 import com.itkluo.demo.widget.GoodRulePopupWindow;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
+import java.io.File;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -90,7 +91,7 @@ public class DemoListActivity extends AppCompatActivity {
                 "伸缩TextView--CollapsibleTextView", "测试 Demo", "改造系统TabLayout", "抢购倒计时", "商品规格选择弹窗", "点击右上角弹出下拉菜单", "RxJava操作符", "使用用TomCat实现软件的版本检测"
                 , "获取路径下未安装的apk信息", "跳转到veb应用商店的搜索页面", "传感器", "震动和提示音", "卡顿检测工具BlockCanary", "截图", "获取手机信息"
                 , "系统信息", "二维码", "NFC", "启动其他App", "MediaPlayer拼接播放数字语音", "SoundPool拼接播放数字语音", "发广播激活百度ota", "USB", "前后摄像头", "Hook入门"
-                , "ScrollView嵌套拦截", "贝塞尔曲线", "Android USB Host与HID设备通信","ViewPager嵌套ListView滑动冲突测试","GridViewTestActivity"
+                , "ScrollView嵌套拦截", "贝塞尔曲线", "Android USB Host与HID设备通信", "ViewPager嵌套ListView滑动冲突测试", "GridViewTestActivity"
         };
 
         //自定义View https://github.com/18598925736/UiDrawTest  https://www.jianshu.com/p/8ee2acc24755
@@ -105,6 +106,7 @@ public class DemoListActivity extends AppCompatActivity {
         //https://github.com/Geek8ug/Android-SerialPort
         //https://juejin.im/post/6844903870368317447
 
+        //GitHub 悬浮窗 TestForFloatingWindow-master
         itemCount = values.length;
 
         //List<String> list = Arrays.asList(values);
@@ -292,7 +294,11 @@ public class DemoListActivity extends AppCompatActivity {
                         DemoListActivity.this.startActivity(new Intent(DemoListActivity.this, ViewPagerListViewTouchActivity.class));
                         break;
                     case 41://GridViewTestActivity
-                        DemoListActivity.this.startActivity(new Intent(DemoListActivity.this, GridViewTestActivity.class));
+//                        DemoListActivity.this.startActivity(new Intent(DemoListActivity.this, GridViewTestActivity.class));
+//                        changeFileTest(".mp4");
+//                        changeFileTest(".txt");
+//                        changeFileTest(".xlsx");
+                        changeFileTest(".doc");
                         break;
                     default:
                         break;
@@ -303,30 +309,37 @@ public class DemoListActivity extends AppCompatActivity {
 //        LeakCauseSample instance = LeakCauseSample.getInstance(this);
         //Android 5.0以上 截图工具，先要弹窗由用户授权截取屏幕
 //        ShotUtils.getInstance().init(mActivity);
+        // https://github.com/gyf-dev/ImmersionBar 有网络连接断开提示条UI，滚动改 alpha 渐变标题栏
     }
 
-    private int getRawFileVoiceTime(int rawId) {
-        int duration = 0;
-        MediaPlayer mediaPlayer = new MediaPlayer();
-        try {
-            Uri uri = Uri.parse("android.resource://" + mActivity.getPackageName() + "/" + rawId);
-            mediaPlayer.setDataSource(mActivity, uri);
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-//
-//            AssetFileDescriptor file = mContext.getResources().openRawResourceFd(rawId);
-//            mediaPlayer.setDataSource(file.getFileDescriptor(), file.getStartOffset(), file.getLength());
-//            file.close();
 
-            mediaPlayer.prepare();
-            duration = mediaPlayer.getDuration();
+    /**
+     * 加密算法，更改文件中的字节
+     * @param suffix
+     */
+    private static void changeFileTest(final String suffix) {
+        final String filePath = Environment.getExternalStorageDirectory() + File.separator + "zyt_test" + File.separator;
+        final String originFile = filePath + "1" + suffix;
+        Runnable runnable = new Runnable() {
+            public void run() {
+                byte[] originBytes = CommonUtil.file2Byte(originFile);
+                byte c0 = originBytes[0];
 
-            mediaPlayer.stop();
-            mediaPlayer.reset();
-            mediaPlayer.release();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return duration;
+                Log.d(TAG, "originBytes: " + HexStringUtil.bytesToHexStringForShow(originBytes));
+                if (originBytes != null && originBytes.length > 0) {
+                    //加密
+                    originBytes[0] = 0x1;
+                    Log.d(TAG, "changeBytes: " + HexStringUtil.bytesToHexStringForShow(originBytes));
+                    CommonUtil.byte2File(originBytes, filePath, "4" + suffix);
+                    //还原
+                    final String originFile = filePath + "4" + suffix;
+                    byte[] changeBytes = CommonUtil.file2Byte(originFile);
+                    changeBytes[0] = c0;
+                    CommonUtil.byte2File(changeBytes, filePath, "44" + suffix);
+                }
+            }
+        };
+        new Thread(runnable).start();
     }
 
 
