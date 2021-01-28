@@ -146,5 +146,9 @@ dependencies {
     // 卡顿监控的另一个方案 https://blog.csdn.net/u012874222/article/details/79417549
     // 卡顿监控的另一个方案 https://github.com/pengweiqiang/ANRWatch
 
+    // 滴滴出行开源的效率测试工具
+    debugImplementation 'com.didichuxing.doraemonkit:dokitx:3.3.5'
+    releaseImplementation 'com.didichuxing.doraemonkit:dokitx-no-op:3.3.5'
+
     implementation project(':common')
 }
