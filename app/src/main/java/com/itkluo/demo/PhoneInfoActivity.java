@@ -39,6 +39,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.itkluo.demo.utils.DeviceIdUtil;
+import com.ut.device.UTDevice;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -759,12 +760,23 @@ public class PhoneInfoActivity extends AppCompatActivity {
     }
 
     public void getDeviceId(View view) {
-        //唯一标识ID，兼容Android版本
-        Toast.makeText(this, DeviceIdUtil.getDeviceId(this), Toast.LENGTH_SHORT).show();
+        //唯一标识ID，兼容Android版本，有无赋予 READ_PHONE 权限结果不同
         Log.d("PhoneInfoActivity", "Android " + android.os.Build.VERSION.RELEASE);
         Log.d("PhoneInfoActivity", "deviceId--> " + DeviceIdUtil.getDeviceId(this));
-
+        //9FF3CD6FF8D06818B0B8A29D625ADFB75DBAA6DD
+        //91384A64427B7B8C03A06BD12A67ACD59E42BE26
         mTextView.setText("Android " + android.os.Build.VERSION.RELEASE +"\n"
                 +"deviceId--> " + DeviceIdUtil.getDeviceId(this));
+    }
+
+    public void aliGetDeviceId(View view) {
+        //阿里UTD库 获取手机唯一标识
+        //卸载重装，有无赋予 READ_PHONE 权限都不会变
+        //https://blog.csdn.net/justfwd/article/details/50549971
+        String utdid = UTDevice.getUtdid(this);
+        Log.d("PhoneInfoActivity", "aliGetDeviceId: "+ utdid);
+        //XzSpKwGJImgDAENpvnQ3IrVZ
+        //X6vgIek2rLcDAF3E+OMP53Vi
+        mTextView.setText(utdid);
     }
 }

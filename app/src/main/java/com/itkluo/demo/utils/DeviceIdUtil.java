@@ -30,7 +30,7 @@ public class DeviceIdUtil {
             sbDeviceId.append(imei);
             sbDeviceId.append("|");
         }
-        //附加androidId
+        //附加androidId 1d6c18bd17d00f82
         if (androidId != null && androidId.length() > 0) {
             sbDeviceId.append(androidId);
             sbDeviceId.append("|");

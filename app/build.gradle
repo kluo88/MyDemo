@@ -119,6 +119,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation files('libs\\alicloud-android-utdid-1.1.5.4.jar')
     testImplementation 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.2.1'
     implementation 'com.jakewharton:butterknife:8.2.1'
@@ -135,6 +136,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.2.4'
     implementation files('libs/fastjson-1.2.2.jar')
     implementation files('libs/xUtils-2.6.14.jar')
+    //阿里UTD库 获取手机唯一标识
+//    implementation 'com.aliyun.ams:alicloud-android-utdid:2.5.1-proguard'
 
     // 仅在debug包启用BlockCanary进行卡顿监控和提示的话，可以这么用
 //    debugCompile 'com.github.markzhai:blockcanary-android:1.5.0'

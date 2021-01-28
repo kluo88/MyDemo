@@ -36,4 +36,6 @@ dependencies {
 
     // 权限请求框架：https://github.com/getActivity/XXPermissions
     api 'com.hjq:xxpermissions:6.2'
+    // 吐司框架：https://github.com/getActivity/ToastUtils
+    api 'com.hjq:toast:8.8'
 }

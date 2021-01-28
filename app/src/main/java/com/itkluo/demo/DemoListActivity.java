@@ -23,9 +23,13 @@ import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.hjq.permissions.OnPermission;
+import com.hjq.permissions.XXPermissions;
+import com.hjq.toast.ToastUtils;
 import com.itkluo.demo.aidl.ClientActivity2;
 import com.itkluo.demo.api.CameraActivity;
 import com.itkluo.demo.apk.GetApkFileInfoActivity;
+import com.itkluo.demo.camera.CameraActivity2;
 import com.itkluo.demo.exam.ProgressActivity;
 import com.itkluo.demo.exam.bezier.BezierMain;
 import com.itkluo.demo.exam.scrollviewswipe.ScrollViewInterceptMain;
@@ -92,6 +96,7 @@ public class DemoListActivity extends AppCompatActivity {
                 , "获取路径下未安装的apk信息", "跳转到veb应用商店的搜索页面", "传感器", "震动和提示音", "卡顿检测工具BlockCanary", "截图", "获取手机信息"
                 , "系统信息", "二维码", "NFC", "启动其他App", "MediaPlayer拼接播放数字语音", "SoundPool拼接播放数字语音", "发广播激活百度ota", "USB", "前后摄像头", "Hook入门"
                 , "ScrollView嵌套拦截", "贝塞尔曲线", "Android USB Host与HID设备通信", "ViewPager嵌套ListView滑动冲突测试", "GridViewTestActivity"
+                , "打开系统相机"
         };
 
         //自定义View https://github.com/18598925736/UiDrawTest  https://www.jianshu.com/p/8ee2acc24755
@@ -300,6 +305,9 @@ public class DemoListActivity extends AppCompatActivity {
 //                        changeFileTest(".xlsx");
                         changeFileTest(".doc");
                         break;
+                    case 42://打开系统相机
+                        openCamera();
+                        break;
                     default:
                         break;
                 }
@@ -310,11 +318,44 @@ public class DemoListActivity extends AppCompatActivity {
         //Android 5.0以上 截图工具，先要弹窗由用户授权截取屏幕
 //        ShotUtils.getInstance().init(mActivity);
         // https://github.com/gyf-dev/ImmersionBar 有网络连接断开提示条UI，滚动改 alpha 渐变标题栏
+        // https://github.com/Blankj/AndroidUtilCode/ 一个强大易用的安卓工具类库
     }
 
+    private void openCamera() {
+        XXPermissions.with(mActivity)
+                // 可设置被拒绝后继续申请，直到用户授权或者永久拒绝
+                .constantRequest()
+                .permission(com.hjq.permissions.Permission.Group.STORAGE)
+                .permission(com.hjq.permissions.Permission.RECORD_AUDIO)
+                .permission(com.hjq.permissions.Permission.CAMERA)
+                .request(new OnPermission() {
+                    @Override
+                    public void hasPermission(List<String> granted, boolean all) {
+                        if (all) {
+                            try {
+                                CameraActivity2.start(mActivity, true);
+                            } catch (Throwable e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void noPermission(List<String> denied, boolean never) {
+                        if (never) {
+                            ToastUtils.show(R.string.common_permission_fail);
+                            XXPermissions.gotoPermissionSettings(mActivity);
+                        } else {
+                            ToastUtils.show(R.string.common_permission_hint);
+                        }
+
+                    }
+                });
+    }
 
     /**
      * 加密算法，更改文件中的字节
+     *
      * @param suffix
      */
     private static void changeFileTest(final String suffix) {

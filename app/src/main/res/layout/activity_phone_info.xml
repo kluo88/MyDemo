@@ -31,6 +31,11 @@
         android:layout_height="wrap_content"
         android:onClick="getDeviceId"
         android:text="Android 设备唯一标识（适配Android  版本）" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="aliGetDeviceId"
+        android:text="阿里UTD库 获取手机唯一标识" />
 
     <LinearLayout
         android:layout_width="match_parent"

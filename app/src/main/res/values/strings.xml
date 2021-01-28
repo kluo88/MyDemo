@@ -27,4 +27,7 @@
     <string name="c8">F07</string>
     <string name="c9">70F</string>
 
+    <string name="common_permission_hint">请先授予权限</string>
+    <string name="common_permission_fail">授权失败，请手动授予权限</string>
+
 </resources>
