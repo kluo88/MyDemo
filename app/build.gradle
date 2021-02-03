@@ -1,24 +1,12 @@
 apply plugin: 'com.android.application'
+apply from: "../config.gradle"
 
 android {
-    compileSdkVersion rootProject.ext.compileVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "com.itkluo.demo"
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetVersion
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
-//    buildTypes {
-//        release {
-//            minifyEnabled false
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//        }
-//    }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -33,7 +21,6 @@ android {
             minifyEnabled false
             zipAlignEnabled false
 //            signingConfig signingConfigs.release
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "boolean", "BUGLY_DEBUG", "true"
             resValue "string", "myname", "test2"
         }
@@ -79,26 +66,27 @@ android {
 //    }
 
 
-    flavorDimensions "client"  //维度，根据业务场景来， 比如 client（定制不同客户业务）,supplier（供应商）， theme (定制主题业务)
-    productFlavors {//风味
-        //最后打包风味的总数就是 维度x风味
-        fla1 {
-            applicationId "com.itkluo.demo1"
-            versionCode 1
-            versionName "1.1.1." + versionCode
-            dimension 'client' //当前风味所处的维度是channel维度
-            manifestPlaceholders = [client: "a"]
-        }
+//    flavorDimensions "client"  //维度，根据业务场景来， 比如 client（定制不同客户业务）,supplier（供应商）， theme (定制主题业务)
+//    productFlavors {//风味
+//        //最后打包风味的总数就是 维度x风味
+//        fla1 {
+//            applicationId "com.itkluo.demo1"
+//            versionCode 1
+//            versionName "1.1.1." + versionCode
+//            dimension 'client' //当前风味所处的维度是channel维度
+//            manifestPlaceholders = [client: "a"]
+//        }
+//
+//        fla2 {
+//            dimension 'client'
+//            applicationId "com.itkluo.demo2"
+//            versionCode 2
+//            versionName "1.1.2." + versionCode
+//            manifestPlaceholders = [client: "b"]
+//        }
+//
+//    }
 
-        fla2 {
-            dimension 'client'
-            applicationId "com.itkluo.demo2"
-            versionCode 2
-            versionName "1.1.2." + versionCode
-            manifestPlaceholders = [client: "b"]
-        }
-
-    }
 
 }
 
@@ -116,11 +104,9 @@ static def appNamePrefix() {
 
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation 'androidx.multidex:multidex:2.0.1'
+
     implementation files('libs\\alicloud-android-utdid-1.1.5.4.jar')
-    testImplementation 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.2.1'
     implementation 'com.jakewharton:butterknife:8.2.1'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
@@ -128,8 +114,7 @@ dependencies {
     implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.3@aar'
     //如果想要实现条件触发获取权限(结合RxBinding使用)的情况，则还需要依赖RxBinding开源库
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
-    implementation 'com.android.support:design:28.0.0'
-    implementation 'com.android.support:cardview-v7:28.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'cn.bingoogolapple:bga-banner:2.2.1@aar'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.google.guava:guava:18.0'

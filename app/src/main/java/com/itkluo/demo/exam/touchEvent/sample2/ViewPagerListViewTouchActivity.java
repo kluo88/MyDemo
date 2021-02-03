@@ -1,12 +1,13 @@
 package com.itkluo.demo.exam.touchEvent.sample2;
 
 import android.os.Bundle;
-import android.support.v4.view.PagerAdapter;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.PagerAdapter;
 
 import com.itkluo.demo.R;
 

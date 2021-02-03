@@ -2,14 +2,15 @@ package com.itkluo.demo.widget.cascadingmenu;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.itkluo.demo.R;
 import com.itkluo.demo.widget.cascadingmenu.adapter.MenuItemAdapter;

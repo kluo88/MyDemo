@@ -1,7 +1,7 @@
 package com.itkluo.demo.exam.scrollviewswipe.in;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.itkluo.demo.R;
 

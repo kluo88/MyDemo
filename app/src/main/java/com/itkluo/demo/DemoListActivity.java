@@ -10,8 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -21,6 +19,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.hjq.permissions.OnPermission;
@@ -96,7 +97,7 @@ public class DemoListActivity extends AppCompatActivity {
                 , "获取路径下未安装的apk信息", "跳转到veb应用商店的搜索页面", "传感器", "震动和提示音", "卡顿检测工具BlockCanary", "截图", "获取手机信息"
                 , "系统信息", "二维码", "NFC", "启动其他App", "MediaPlayer拼接播放数字语音", "SoundPool拼接播放数字语音", "发广播激活百度ota", "USB", "前后摄像头", "Hook入门"
                 , "ScrollView嵌套拦截", "贝塞尔曲线", "Android USB Host与HID设备通信", "ViewPager嵌套ListView滑动冲突测试", "GridViewTestActivity"
-                , "打开系统相机"
+                , "打开系统相机","调系统相机拍多张图片"
         };
 
         //自定义View https://github.com/18598925736/UiDrawTest  https://www.jianshu.com/p/8ee2acc24755
@@ -307,6 +308,9 @@ public class DemoListActivity extends AppCompatActivity {
                         break;
                     case 42://打开系统相机
                         openCamera();
+                        break;
+                    case 43://调系统相机拍多张图片
+
                         break;
                     default:
                         break;

@@ -1,12 +1,13 @@
 package com.itkluo.demo.apk;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.ArrayMap;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.itkluo.demo.R;
 import com.itkluo.demo.utils.ApkFileParser;

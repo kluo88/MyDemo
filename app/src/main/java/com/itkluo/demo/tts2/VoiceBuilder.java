@@ -1,6 +1,6 @@
 package com.itkluo.demo.tts2;
 
-import android.support.annotation.RawRes;
+import androidx.annotation.RawRes;
 import android.text.TextUtils;
 
 import java.util.regex.Matcher;

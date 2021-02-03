@@ -27,7 +27,7 @@ import java.lang.reflect.Field;
  * Created by hyy on 2018/11/21.
  */
 
-public class CollapsibleTextView extends android.support.v7.widget.AppCompatTextView {
+public class CollapsibleTextView extends androidx.appcompat.widget.AppCompatTextView {
 
     public static final int STATE_SHRINK = 0;
     public static final int STATE_EXPAND = 1;
