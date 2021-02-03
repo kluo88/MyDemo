@@ -31,6 +31,7 @@ import com.itkluo.demo.aidl.ClientActivity2;
 import com.itkluo.demo.api.CameraActivity;
 import com.itkluo.demo.apk.GetApkFileInfoActivity;
 import com.itkluo.demo.camera.CameraActivity2;
+import com.itkluo.demo.camera.CameraMultiFileActivity;
 import com.itkluo.demo.exam.ProgressActivity;
 import com.itkluo.demo.exam.bezier.BezierMain;
 import com.itkluo.demo.exam.scrollviewswipe.ScrollViewInterceptMain;
@@ -310,7 +311,7 @@ public class DemoListActivity extends AppCompatActivity {
                         openCamera();
                         break;
                     case 43://调系统相机拍多张图片
-
+                        startActivity(new Intent(mActivity, CameraMultiFileActivity.class));
                         break;
                     default:
                         break;

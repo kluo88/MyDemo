@@ -36,7 +36,7 @@ public class CameraMultiFileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_camera_multi_file);
         mActivity = this;
         bt = (Button) findViewById(R.id.query);
         pb = findViewById(R.id.pb);
