@@ -1,4 +1,4 @@
-package com.itkluo.camera.camera2;
+package com.veb.privatespace.common.widget.monitor;
 
 import android.Manifest;
 import android.app.Activity;
@@ -19,13 +19,14 @@ import android.media.Image;
 import android.media.ImageReader;
 import android.os.Handler;
 import android.os.HandlerThread;
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import android.util.Log;
 import android.util.Size;
 import android.view.Surface;
 import android.view.TextureView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import com.itkluo.camera.util.BitmapUtils;
 
@@ -62,12 +63,13 @@ public class Camera2Helper {
     private CameraCharacteristics mCameraCharacteristics;
 
     private int mCameraSensorOrientation = 0;                                            //摄像头方向
-    private int mCameraFacing = CameraCharacteristics.LENS_FACING_BACK;              //默认使用后置摄像头
+    private int mCameraFacing = CameraCharacteristics.LENS_FACING_FRONT;              //默认使用的摄像头
     private int mDisplayRotation;  //手机方向
 
     private boolean isSurfaceAvailable = false;                                          //是否 SurfaceTexture 已准备好
     private boolean canTakePic = true;                                                       //是否可以拍照
     private boolean canExchangeCamera = false;                                               //是否可以切换摄像头
+    private boolean isOpenCamera = false;                                               //是否已开启过相机
 
     private Handler mCameraHandler;
     private HandlerThread handlerThread = new HandlerThread("CameraThread");
@@ -76,7 +78,9 @@ public class Camera2Helper {
     private Size mSavePicSize = new Size(SAVE_WIDTH, SAVE_HEIGHT);                            //保存图片大小
 
     private boolean showToast = false;   //是否弹 toast
-    private boolean showLog = true;   //是否打印 log
+    private boolean showLog = false;   //是否打印 log
+
+    private Size mTargetPreviewSize = null;                      //外部期望的预览大小
 
     private CallBack mCallBack;//自定义的回调
 
@@ -86,7 +90,7 @@ public class Camera2Helper {
         init();
     }
 
-    private void init() {
+    public void init() {
         handlerThread.start();
         mCameraHandler = new Handler(handlerThread.getLooper());
     }
@@ -95,6 +99,7 @@ public class Camera2Helper {
      * 初始化SurfaceView，开启预览
      */
     private void startInitSurface() {
+        setupPreviewSize();
         mTextureView.setSurfaceTextureListener(new TextureView.SurfaceTextureListener() {
             @Override
             public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
@@ -144,13 +149,14 @@ public class Camera2Helper {
             } catch (CameraAccessException e) {
                 e.printStackTrace();
             }
+            log("设备中的摄像头 " + id);
             int facing = cameraCharacteristics.get(CameraCharacteristics.LENS_FACING);
-
             if (facing == mCameraFacing) {
                 mCameraId = id;
                 mCameraCharacteristics = cameraCharacteristics;
+                log("使用的摄像头 " + id);
+                break;
             }
-            log("设备中的摄像头 " + id);
         }
 
         if (mCameraCharacteristics == null) {
@@ -160,7 +166,7 @@ public class Camera2Helper {
 
         int supportLevel = mCameraCharacteristics.get(CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL);
         if (supportLevel == CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_LEGACY) {
-//            toast("相机硬件不支持新特性")
+            toast("相机硬件不支持新特性");
         }
 
         //获取摄像头方向
@@ -194,13 +200,29 @@ public class Camera2Helper {
         log("保存图片最优尺寸 ：" + mSavePicSize.getWidth() + " * " + mSavePicSize.getHeight() + ", 比例  " + ((float) mSavePicSize.getWidth()) / mSavePicSize.getHeight());
 
 
+        /**
+         * 根据预览的尺寸大小调整TextureView的大小，保证画面不被拉伸。
+         * <p>这种应用在预览View去适配相机预览大小的场景</p>
+         */
+//        int orientation = mActivity.getResources().getConfiguration().orientation;
+//        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+//            mTextureView.setAspectRatio(mPreviewSize.getWidth(), mPreviewSize.getHeight());
+//        } else {
+//            mTextureView.setAspectRatio(mPreviewSize.getHeight(), mPreviewSize.getWidth());
+//        }
+
+        //用于接收拍照结果和访问拍摄照片的图像数据,前两个参数是保存图片的宽高，第三个参数为保存图片的格式，第四个参数代表用户可以同时访问到的最大图片数量
         mImageReader = ImageReader.newInstance(mSavePicSize.getWidth(), mSavePicSize.getHeight(), ImageFormat.JPEG, 1);
         mImageReader.setOnImageAvailableListener(onImageAvailableListener, mCameraHandler);
     }
 
+    /**
+     * 处理得到的图像数据
+     */
     private ImageReader.OnImageAvailableListener onImageAvailableListener = new ImageReader.OnImageAvailableListener() {
         @Override
         public void onImageAvailable(ImageReader reader) {
+            //得到ImageReader图像队列中的下一张图片，返回值是一个Image对象
             Image image = reader.acquireNextImage();
 
             //我们可以将这帧数据转成字节数组，类似于Camera1的PreviewCallback回调的预览帧数据
@@ -241,6 +263,7 @@ public class Camera2Helper {
     /**
      * 打开相机
      */
+//    @Permissions({Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE, Permission.CAMERA})
     private void openCameraInternal() {
         try {
             if (ContextCompat.checkSelfPermission(mActivity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -335,6 +358,10 @@ public class Camera2Helper {
      * 打开相机
      */
     public void openCamera() {
+        if (isOpenCamera) {
+            return;
+        }
+        isOpenCamera = true;
         if (!isSurfaceAvailable) {
             startInitSurface();
             return;
@@ -386,7 +413,8 @@ public class Camera2Helper {
             mCameraFacing = CameraCharacteristics.LENS_FACING_FRONT;
         }
 
-        mPreviewSize = new Size(PREVIEW_WIDTH, PREVIEW_HEIGHT); //重置预览大小
+        //重置预览大小
+        setupPreviewSize();
 
         releaseCamera();
 
@@ -396,7 +424,23 @@ public class Camera2Helper {
     }
 
     /**
-     * 根据提供的参数值返回与指定宽高相等或最接近的尺寸
+     * 设置开始时的预览大小。
+     * <p>这种应用在相机预览大小去适配预览View的场景</p>
+     */
+    private void setupPreviewSize() {
+        if (mTargetPreviewSize != null) {
+            mPreviewSize = mTargetPreviewSize;
+        } else if (mTextureView.getWidth() > 0 && mTextureView.getHeight() > 0) {
+            mPreviewSize = new Size(mTextureView.getWidth(), mTextureView.getHeight());
+        } else {
+            mPreviewSize = new Size(PREVIEW_WIDTH, PREVIEW_HEIGHT);
+        }
+    }
+
+    /**
+     * 根据提供的参数值返回与指定宽高相等或最接近的尺寸。
+     * <p>根据传入的 目标宽高值、最大宽高值（即屏幕大小）和 相机支持的尺寸列表，从相机支持的尺寸列表中得到一个最优值。
+     * </p>
      *
      * @param targetWidth  目标宽度
      * @param targetHeight 目标高度
@@ -415,10 +459,11 @@ public class Camera2Helper {
             if (size.getWidth() <= maxWidth && size.getHeight() <= maxHeight
                     && size.getWidth() == size.getHeight() * targetWidth / targetHeight) {
 
-                if (size.getWidth() >= targetWidth && size.getHeight() >= targetHeight)
+                if (size.getWidth() >= targetWidth && size.getHeight() >= targetHeight) {
                     bigEnough.add(size);
-                else
+                } else {
                     notBigEnough.add(size);
+                }
             }
             log(tag + "-->" + "系统支持的尺寸: " + size.getWidth() + " * " + size.getHeight() + ",  比例 ：" + ((float) size.getWidth()) / size.getHeight());
         }
@@ -464,7 +509,7 @@ public class Camera2Helper {
         return exchange;
     }
 
-    private void releaseCamera() {
+    public void releaseCamera() {
         if (mCameraCaptureSession != null) {
             mCameraCaptureSession.close();
             mCameraCaptureSession = null;
@@ -479,8 +524,8 @@ public class Camera2Helper {
             mImageReader.close();
             mImageReader = null;
         }
-
         canExchangeCamera = false;
+        isOpenCamera = false;
     }
 
     private void releaseThread() {
@@ -520,6 +565,15 @@ public class Camera2Helper {
 
     public void setShowLog(boolean showLog) {
         this.showLog = showLog;
+    }
+
+    /**
+     * 外部期望的预览大小，在保证图片既不变形又能最接近我们指定的大小下，最终计算出一个 {@link #mPreviewSize}
+     *
+     * @param targetPreviewSize
+     */
+    public void setTargetPreviewSize(Size targetPreviewSize) {
+        mTargetPreviewSize = targetPreviewSize;
     }
 
     /**

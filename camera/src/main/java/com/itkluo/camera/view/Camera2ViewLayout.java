@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.TextureView;
 import android.widget.FrameLayout;
@@ -19,6 +20,7 @@ import com.itkluo.camera.camera2.Camera2Helper;
  * @date 2020/10/22
  */
 public class Camera2ViewLayout extends RelativeLayout {
+    private static final String TAG = "Camera2ViewLayout";
     private TextureView mCameraView;
     private FrameLayout mCameraCover;
     private Camera2Helper mCamera2Helper;
@@ -71,14 +73,17 @@ public class Camera2ViewLayout extends RelativeLayout {
     }
 
     @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        destroy();
     }
 
     /**
      * 开始预览
+     * 在 {@link Activity#onResume()} ()} 或 {@link Activity#onStart()} ()} 调用
      */
     public void startPreview() {
+        Log.d(TAG, "startPreview: ");
         if (mCamera2Helper != null) {
             mCamera2Helper.openCamera();
         }
@@ -93,14 +98,23 @@ public class Camera2ViewLayout extends RelativeLayout {
         }
     }
 
+    /**
+     * 停止 camera
+     * 在 {@link Activity#onPause()} 或 {@link Activity#onStop()} 调用
+     */
     public void pause() {
-
+        Log.d(TAG, "pause: ");
+        if (mCamera2Helper != null) {
+            mCamera2Helper.releaseCamera();
+        }
     }
 
     /**
      * 释放摄像头
+     * 在 {@link Activity#onDestroy()} 调用
      */
-    public void release() {
+    public void destroy() {
+        Log.d(TAG, "destroy: ");
         if (mCamera2Helper != null) {
             mCamera2Helper.release();
         }

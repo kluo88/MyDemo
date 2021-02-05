@@ -10,7 +10,7 @@
         android:layout_height="400dp"
         app:cameraCoverBackgroundColor="#60000000"
         app:cameraFacing="front"
-        app:showLog="true"
+        app:showLog="false"
         app:showToast="false" />
 
     <RelativeLayout
@@ -37,6 +37,37 @@
             android:background="@drawable/shape_white_ring"
             android:src="@drawable/select_circle"
             android:visibility="visible" />
+
+        <Button
+            android:id="@+id/startPreview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:onClick="startPreview"
+            android:text="开始预览" />
+
+        <Button
+            android:id="@+id/stopPreview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/startPreview"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:onClick="stopPreview"
+            android:text="停止预览" />
+
+        <Button
+            android:id="@+id/destroy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/stopPreview"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:onClick="destroyCamera"
+            android:text="销毁相机" />
+
     </RelativeLayout>
 
 
