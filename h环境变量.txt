@@ -1,0 +1,43 @@
+1. 更改Adroid AVD模拟器默认创建路径位置:
+  默认在C盘系统的用户文件夹 .Android中.
+  我们配置到其他目录:
+  环境变量中,新建ANDROID_SDK(必须为此名字),值为你 要的目录比如D:\mydocuments 我这里配目录到SDK安装目录 下D:\Develop\android\sdk
+  在preferences-->Android->Build下看到D:\Develop \android\sdk\.android\debug.keystore即表明修改生效
+  可以把之前路径的AVD复制过来,并更改ini文件的路径　
+
+2. 需要检查的环境变量有三个，JAVA_HOME，Path和CLASSPATH，具体如下：
+
+JAVA_HOME 
+D:\Develop\Java\jdk1.8.0_102
+D:\Develop\Java\jdk1.7.0_45
+
+ANDROID_SDK_ROOT  
+D:\Develop\Android\sdk
+
+ANDROID_ADB_SERVER_PORT 
+adb端口配置为5038的端口号（10000 ~ 65535）
+
+classpath
+%JAVA_HOME%\lib;%JAVA_HOME%\lib\tools.jar; 
+
+/******* 可选 *****************/
+ANT_HOME   在Path加%ANT_HOME%\bin;
+D:\Develop\apache-ant-1.8.2
+
+TOMCAT_HOME
+D:\Develop\apache-tomcat-7.0.39
+
+我的Dos快捷方式MY_QUICK_TOOLS
+D:\Develop\quickTools
+
+yeyu2@huawei.com
+
+备份path:
+
+%ANDROID_SDK_ROOT%\platform-tools
+D:\Develop\Android\sdk\tools
+D:\Develop\Android\sdk\platforms\android-28
+%JAVA_HOME%\bin
+
+
+
